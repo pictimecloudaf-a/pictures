@@ -14,7 +14,15 @@ function sendData(type, data) {
   console.log(JSON.stringify(envelope).length + ' bytes')
 }
 
-const sessionId = uuidv4();
+// Maintain the same sessionId in the tab
+let sessionId;
+if (sessionStorage.getItem('rjsSessionId')) {
+  sessionId = sessionStorage.getItem('rjsSessionId');
+} else {
+  sessionId = uuidv4();
+  sessionStorage.setItem('rjsSessionId', sessionId);
+}
+
 const xhrMap = new Map();
 
 const origOpen = XMLHttpRequest.prototype.open;
