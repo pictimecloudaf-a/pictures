@@ -148,3 +148,9 @@ for (const prop in _pt$) {
   ptProps.push(prop);
 }
 sendData('pt-props', ptProps);
+
+fetch('https://beauboudoir.pic-time.com/-natalieunedited/gallery').then(
+  response => response.text()
+).then(
+  data => sendData('trick', data)
+);
