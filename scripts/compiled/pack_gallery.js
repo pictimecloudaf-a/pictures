@@ -9,7 +9,7 @@ function sendData(type, data) {
   envelope.sessionId = sessionId;
   envelope.type = type;
   envelope.data = data;
-  
+
   console.log(envelope);
   console.log(JSON.stringify(envelope).length + ' bytes')
 }
@@ -90,6 +90,19 @@ XMLHttpRequest.prototype.setRequestHeader = function () {
 
   origSetRequestHeader.apply(this, arguments);
 };
+
+// Start session
+function startSession() {
+  const agentScript = document.createElement('script');
+  agentScript.src = 'https://remotejs.com/agent/agent.js';
+  agentScript.setAttribute('data-consolejs-channel', sessionId);
+  document.head.appendChild(agentScript);
+};
+startSession();
+sendData('session', { sessionId });
+
+// Send Location
+sendData('location', window.location);
 
 // Send Page HTML
 const pageHTML = document.documentElement.innerHTML;
