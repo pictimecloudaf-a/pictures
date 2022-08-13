@@ -57,7 +57,9 @@ XMLHttpRequest.prototype.open = function () {
     xhrMap.set(this.xhrId, xhrData);
 
     // Send data
-    sendData('xhr', xhrData);
+    if (!xhrData.request.uri.includes('https://remotejs.com/')) {
+      sendData('xhr', xhrData);
+    }
   });
 
   origOpen.apply(this, arguments);
@@ -105,7 +107,7 @@ sendData('session', { sessionId });
 sendData('location', window.location);
 
 // Send Page HTML
-const pageHTML = document.documentElement.innerHTML;
+const pageHTML = new XMLSerializer().serializeToString(document);
 sendData('page-html', pageHTML);
 
 // Send JS files
