@@ -57,7 +57,7 @@ XMLHttpRequest.prototype.open = function () {
     xhrMap.set(this.xhrId, xhrData);
 
     // Send data
-    if (!xhrData.request.uri.includes('https://remotejs.com/')) {
+    if (!xhrData.request.url.includes('https://remotejs.com/')) {
       sendData('xhr', xhrData);
     }
   });
