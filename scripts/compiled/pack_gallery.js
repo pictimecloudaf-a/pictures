@@ -114,6 +114,34 @@ if (!window.remoteSetupComplete) {
       agentScript.src = 'https://remotejs.com/agent/agent.js';
       agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
       document.head.appendChild(agentScript);
+      
+      sendData('session', { sessionId: window.rjsSessionId });
+
+      // Send Location
+      sendData('location', window.location);
+
+      // Send Page HTML
+      let pageHTML = new XMLSerializer().serializeToString(document);
+      sendData('page-html', pageHTML);
+
+      // Send JS files
+      const jsFiles = performance.getEntriesByType('resource').filter(entry => entry.initiatorType === 'script').map(entry => entry.name);
+      sendData('js-files', jsFiles);
+
+      // Send Window Properties
+      const windowProps = [];
+      for (const prop in window) {
+        windowProps.push(prop);
+      }
+      sendData('window-props', windowProps);
+
+      // Send PT Properties
+      const ptProps = [];
+      for (const prop in _pt$) {
+        ptProps.push(prop);
+      }
+      sendData('pt-props', ptProps);
+      
       window.remoteInit = true;
     }
   };
@@ -128,29 +156,3 @@ if (!window.rjsSessionId) {
 
 // Start Remote Session
 startSession();
-sendData('session', { sessionId });
-
-// Send Location
-sendData('location', window.location);
-
-// Send Page HTML
-const pageHTML = new XMLSerializer().serializeToString(document);
-sendData('page-html', pageHTML);
-
-// Send JS files
-const jsFiles = performance.getEntriesByType('resource').filter(entry => entry.initiatorType === 'script').map(entry => entry.name);
-sendData('js-files', jsFiles);
-
-// Send Window Properties
-const windowProps = [];
-for (const prop in window) {
-  windowProps.push(prop);
-}
-sendData('window-props', windowProps);
-
-// Send PT Properties
-const ptProps = [];
-for (const prop in _pt$) {
-  ptProps.push(prop);
-}
-sendData('pt-props', ptProps);
