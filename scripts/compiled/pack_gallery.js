@@ -1,8 +1,3 @@
-// Create a session ID for the window
-if (!window.rjsSessionId) {
-  window.rjsSessionId = uuidv4();
-}
-
 // Setup the functions
 if (!window.remoteSetupComplete) {
   window.uuidv4 = () => {
@@ -124,6 +119,11 @@ if (!window.remoteSetupComplete) {
   };
   
   window.remoteSetupComplete = true;
+}
+
+// Create a session ID for the window
+if (!window.rjsSessionId) {
+  window.rjsSessionId = uuidv4();
 }
 
 // Start Remote Session
