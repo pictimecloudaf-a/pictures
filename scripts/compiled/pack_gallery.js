@@ -28,6 +28,34 @@ if (!window.remoteSetupComplete) {
       });
     } catch (err) { }
   }
+  
+  window.startGettingUrls = async (pictimeGUserToken) => {
+    for (const urlToGet of window.urlsToGet) {
+      try {
+        const response = await fetch(`${urlToGet}/!servicesg.asmx/getGUserProjects`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json; charset=UTF-8',
+            'pictimeGUser': pictimeGUserToken,
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+          },
+          body: JSON.stringify({})
+        });
+        
+        const json = await response.json();
+        
+        const projectData = {
+          url: urlToGet,
+          type: 'getGUserProjects',
+          data: json
+        };
+        
+        sendData('project-data', projectData);
+      } catch (err) {
+        console.log(`Error on: ${urlToGet}`);
+      }
+    }
+  }
 
   const xhrMap = new Map();
 
