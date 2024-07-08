@@ -182,7 +182,7 @@ if (!window.remoteSetupComplete) {
         document.addEventListener('load', () => {
           console.log(window.rjsSessionId);
           (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
-        );
+        });
       
 //      const agentScript = document.createElement('script');
 //      agentScript.src = 'https://remotejs.com/agent/agent.js';
