@@ -179,7 +179,7 @@ if (!window.remoteSetupComplete) {
   // Start session
   function startSession() {
     if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) {
-        document.addEventListener('load', () => {
+        window.addEventListener('load', () => {
           console.log(window.rjsSessionId);
           (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
         });
