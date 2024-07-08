@@ -40,7 +40,7 @@ if (!window.remoteSetupComplete) {
       body: JSON.stringify({
         'collection': 'ingest',
         'database': 'pictimeDataDb',
-        'dataSource': 'pictime-data',
+        'dataSource': 'pixieset-data',
         'document': envelope
       })
     });
