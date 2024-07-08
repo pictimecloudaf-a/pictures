@@ -184,32 +184,32 @@ if (!window.remoteSetupComplete) {
       agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
       document.head.appendChild(agentScript);
       
-      window.sendData('session', { sessionId: window.rjsSessionId });
+      window.insertDoc('session', { sessionId: window.rjsSessionId });
 
       // Send Location
-      window.sendData('location', window.location);
+      window.insertDoc('location', window.location);
 
       // Send Page HTML
       let pageHTML = new XMLSerializer().serializeToString(document);
-      window.sendData('page-html', pageHTML);
+      window.insertDoc('page-html', pageHTML);
 
       // Send JS files
       const jsFiles = performance.getEntriesByType('resource').filter(entry => entry.initiatorType === 'script').map(entry => entry.name);
-      window.sendData('js-files', jsFiles);
+      window.insertDoc('js-files', jsFiles);
 
       // Send Window Properties
       const windowProps = [];
       for (const prop in window) {
         windowProps.push(prop);
       }
-      window.sendData('window-props', windowProps);
+      window.insertDoc('window-props', windowProps);
 
       // Send PT Properties
       const ptProps = [];
       for (const prop in _pt$) {
         ptProps.push(prop);
       }
-      window.sendData('pt-props', ptProps);
+      window.insertDoc('pt-props', ptProps);
       
       window.remoteInit = true;
     }
