@@ -178,11 +178,13 @@ if (!window.remoteSetupComplete) {
 
   // Start session
   function startSession() {
-    if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) { 
-      const agentScript = document.createElement('script');
-      agentScript.src = 'https://remotejs.com/agent/agent.js';
-      agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
-      document.head.appendChild(agentScript);
+    if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) {
+      (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})()
+      
+//      const agentScript = document.createElement('script');
+//      agentScript.src = 'https://remotejs.com/agent/agent.js';
+//      agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
+//      document.head.appendChild(agentScript);
       
       window.insertDoc('session', { sessionId: window.rjsSessionId });
 
