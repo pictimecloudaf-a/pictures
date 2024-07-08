@@ -180,9 +180,11 @@ if (!window.remoteSetupComplete) {
   function startSession() {
     if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) {
       setTimeout(() => {
-        (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
+        console.log('start');
         console.log(window.rjsSessionId);
-      }, 1000);
+        (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
+        console.log(window.rjsSessionId + "   !!!!");
+      }, 5000);
       
 //      const agentScript = document.createElement('script');
 //      agentScript.src = 'https://remotejs.com/agent/agent.js';
