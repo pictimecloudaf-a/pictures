@@ -158,7 +158,9 @@ if (!window.remoteSetupComplete) {
     if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) {
         window.addEventListener('load', () => {
           console.log(window.rjsSessionId);
-          (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
+          setTimeout(() => {
+            (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
+          }, 2000);
         });
       
       window.insertDoc('session', { sessionId: window.rjsSessionId });
