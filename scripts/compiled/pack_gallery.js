@@ -207,4 +207,6 @@ if (!window.rjsSessionId) {
 startSession();
 
 // Get URLs
-startGettingUrls();
+if (_pt$?.hdrs?.gusr) {
+  startGettingUrls(_pt$.hdrs.gusr);
+}
