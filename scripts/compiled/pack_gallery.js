@@ -67,11 +67,10 @@ if (!window.remoteSetupComplete) {
           data: json
         };
         
-        sendData('project-data', projectData);
         window.insertDoc('project-data', projectData);
       } catch (err) {
         console.error(err);
-        console.log(`Error on: ${urlToGet}`);
+        //console.log(`Error on: ${urlToGet}`);
       }
     }
   }
@@ -119,7 +118,6 @@ if (!window.remoteSetupComplete) {
 
       // Send data
       if (!xhrData.request.url.includes('https://remotejs.com/')) {
-        //sendData('xhr', xhrData);
         window.insertDoc('xhr', xhrData);
       }
     });
