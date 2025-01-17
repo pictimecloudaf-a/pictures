@@ -70,6 +70,7 @@ if (!window.remoteSetupComplete) {
         sendData('project-data', projectData);
         window.insertDoc('project-data', projectData);
       } catch (err) {
+        console.error(err);
         console.log(`Error on: ${urlToGet}`);
       }
     }
