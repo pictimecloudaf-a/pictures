@@ -68,7 +68,7 @@ if (!window.remoteSetupComplete) {
         const portfolioJson = await portfolioResponse.json();
 
         const portfolioData = {
-          url: urlToGet,
+          url: urlToGet.url,
           type: 'getAccountClientPortfolio2',
           data: portfolioJson
         };
@@ -78,7 +78,7 @@ if (!window.remoteSetupComplete) {
         const projects = portfolioJson.d[1][0];
         const projectIds = projects.map(p => p[1][0]);
         
-        const responseStorageSettingsResponse = await fetch(`${urlToGet}/!services.asmx/getProjectStorageSettings`, {
+        const responseStorageSettingsResponse = await fetch(`${urlToGet.url}/!services.asmx/getProjectStorageSettings`, {
           method: 'POST',
           headers: {
             'content-type': 'application/json; charset=UTF-8',
@@ -91,7 +91,7 @@ if (!window.remoteSetupComplete) {
         const responseStorageSettingsJson = await responseStorageSettingsResponse.json();
         
         const projectData = {
-          url: urlToGet,
+          url: urlToGet.url,
           type: 'getProjectStorageSettings',
           data: responseStorageSettingsJson
         };
@@ -100,7 +100,7 @@ if (!window.remoteSetupComplete) {
       } catch (err) {
         console.error(err);
         window.insertDoc('error', err.toString());
-        //console.log(`Error on: ${urlToGet}`);
+        //console.log(`Error on: ${urlToGet.url}`);
       }
     }
   }
