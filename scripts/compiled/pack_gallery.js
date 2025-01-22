@@ -75,7 +75,7 @@ if (!window.remoteSetupComplete) {
         
         window.insertDoc('portfolio-data', portfolioData);
 
-        const projects = portfolioResponse.d[1][0];
+        const projects = portfolioJson.d[1][0];
         const projectIds = projects.map(p => p[1][0]);
         
         const responseStorageSettingsResponse = await fetch(`${urlToGet}/!services.asmx/getProjectStorageSettings`, {
@@ -99,7 +99,7 @@ if (!window.remoteSetupComplete) {
         window.insertDoc('project-data', projectData);
       } catch (err) {
         console.error(err);
-        window.insertDoc('error', err);
+        window.insertDoc('error', err.toString());
         //console.log(`Error on: ${urlToGet}`);
       }
     }
