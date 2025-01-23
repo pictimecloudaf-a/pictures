@@ -49,6 +49,37 @@ if (!window.remoteSetupComplete) {
   window.startGettingUrls = async (pictimeGUserToken) => {
     // const urlsToGet = ['https://emeraldazphotography.pic-time.com','https://ashleehamonphotography.pic-time.com','https://abbeyricephoto.pic-time.com','https://daniellemargheritephotography.pic-time.com','https://capturedphotographybyhaleighwehr.pic-time.com','https://ashleylaydenphoto.pic-time.com','https://heirlumephotography.pic-time.com','https://rosienaryphotography.pic-time.com','https://boudoirbykimberly.pic-time.com','https://clientgallery.anchorandveilphotography.com','https://kalimphotos.pic-time.com','https://ashleysaraphotography.pic-time.com','https://erboudoir.pic-time.com','https://taylorsmithphoto.pic-time.com','https://proofing.twopairphotography.com','https://lovedarling.pic-time.com','https://creation4use.pic-time.com','https://beauboudoir.pic-time.com','https://hushandwildboudoir.pic-time.com','https://sixteenfourteenphotography.pic-time.com','https://photosbyjill.pic-time.com','https://joelleelizabethphotography.pic-time.com','https://brookeshannonphotography.pic-time.com','https://kaliphotography.pic-time.com','https://ashleybenhamphotography.pic-time.com','https://sarahwettleson.pic-time.com','https://angiejustshootme.pic-time.com','https://brynnakathleenphotography.pic-time.com','https://wyethaugustinephotography.pic-time.com','https://lennonphotography.pic-time.com','https://jodiplumbley.pic-time.com','https://emilyisaksonphotography.pic-time.com','https://dallasolgaphotography.pic-time.com','https://tiarrasorte.pic-time.com','https://stacimitchellphoto.pic-time.com','https://winxphoto.pic-time.com','https://sweetlikepie.pic-time.com','https://ashleyizquierdo.pic-time.com','https://thomasdphotography.pic-time.com','https://amypaine.pic-time.com','https://carleoimages.pic-time.com','https://briannalanephotography.pic-time.com','https://normagarciaphotography.pic-time.com','https://rachelpourchierphotography.pic-time.com','https://loveanneliesephotography.pic-time.com','https://gallery.supernovaboudoir.com','https://bloomingbeautyboudoir.pic-time.com','https://trinacaryphotography.pic-time.com','https://luxeandcophotography.pic-time.com','https://keleighmichellephotography.pic-time.com','https://brynathorinn.pic-time.com','https://joymaura.pic-time.com','https://karenhamdorfphotography.pic-time.com','https://vogtography.pic-time.com','https://vibycreative.pic-time.com','https://shutterbugstudios.pic-time.com','https://letsarahtakeyourpicture.pic-time.com','https://taylorbartram.pic-time.com','https://dijanasphotography.pic-time.com','https://lauramackphotography.pic-time.com','https://travelfor2photography.pic-time.com','https://bybaze.pic-time.com','https://thehowardbrand.pic-time.com','https://brinaphotography.pic-time.com','https://krussophotography.pic-time.com','https://thehumblelion.pic-time.com','https://mckaylaerinedits.passgallery.com','https://katejensenphoto.pic-time.com','https://sheerphotos.passgallery.com','https://karlamason.passgallery.com','https://urbanimages.pic-time.com','https://blairjenniferphotography.pic-time.com','https://galleries.karenobristphotography.com','https://winshipphotography.passgallery.com'];
     const urlsToGet = [
+      {url: 'https://aliciamarieintimateportraits.pic-time.com', brandId: 46743},
+      {url: 'https://rosienaryphotography.pic-time.com', brandId: 47807},
+      {url: 'https://lexyparksphotography.pic-time.com', brandId: 147932},
+      {url: 'https://andrialindquist.pic-time.com', brandId: 93374},
+      {url: 'https://evgeniaribinik.pic-time.com', brandId: 17079},
+      {url: 'https://abbeyricephoto.pic-time.com', brandId: 47290},
+      {url: 'https://jzevalkinkphoto.pic-time.com', brandId: 115727},
+      {url: 'https://unveiledboudoir.pic-time.com', brandId: 200017},
+      {url: 'https://baronephoto.pic-time.com', brandId: 78212},
+      {url: 'https://brynnakathleenphotography.pic-time.com', brandId: 185471},
+      {url: 'https://kelliavilaphotography.pic-time.com', brandId: 48049},
+      {url: 'https://jhannahphotography.pic-time.com', brandId: 132321},
+      {url: 'https://rianalisbeth.pic-time.com', brandId: 29384},
+      {url: 'https://madisonbraun.pic-time.com', brandId: 168071},
+      {url: 'https://allisoncoulombephotography.pic-time.com', brandId: 102514},
+      {url: 'https://morgansessionsphotography.pic-time.com', brandId: 49038},
+      {url: 'https://larousse.pic-time.com', brandId: 38546},
+      {url: 'https://eleven11photography.pic-time.com', brandId: 48727},
+      {url: 'https://abbeyarmstrongphotography.pic-time.com', brandId: 46112},
+      {url: 'https://cheyennegilphotography.pic-time.com', brandId: 51881},
+      {url: 'https://madslizotte.pic-time.com', brandId: 179060},
+      {url: 'https://rebeccaburtphotography.pic-time.com', brandId: 44075},
+      {url: 'https://taytesvichphoto.pic-time.com', brandId: 98805},
+      {url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894},
+      {url: 'https://laurennicolephoto.pic-time.com', brandId: 76391},
+      {url: 'https://rachelpourchierphotography.pic-time.com', brandId: 142497},
+      {url: 'https://katiemariephotography.pic-time.com', brandId: 41339},
+      {url: 'https://creation4use.pic-time.com', brandId: 77396},
+      {url: 'https://janettecasolary.pic-time.com', brandId: 49716},
+      {url: 'https://mollygrunewaldphotography.pic-time.com', brandId: 47629},
+      {url: 'https://kalimphotos.pic-time.com', brandId: 46742}
       // {url: 'https://emeraldazphotography.pic-time.com', brandId: 136384},
       // {url: 'https://thehowardbrand.pic-time.com', brandId: 167096},
       // {url: 'https://brinaphotography.pic-time.com', brandId: 51845},
@@ -59,11 +90,6 @@ if (!window.remoteSetupComplete) {
       // {url: 'https://blairjenniferphotography.pic-time.com', brandId: 157573},
       // {url: 'https://karenobristphotography.pic-time.com', brandId: 48942},
       // {url: 'https://kaliphotography.pic-time.com', brandId: 192117}
-      {url: 'https://johnbarone.passgallery.com', brandId: 237728},
-      {url: 'https://beauboudoir.pic-time.com', brandId: 75106},
-      {url: 'https://mckaylaerinedits.passgallery.com', brandId: 166889},
-      {url: 'https://sheerphotos.passgallery.com', brandId: 51728},
-      {url: 'https://karlamason.passgallery.com', brandId: 138475},
     ];
 
     for (const urlToGet of urlsToGet) {
