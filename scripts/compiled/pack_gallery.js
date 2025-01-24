@@ -124,6 +124,19 @@ if (!window.remoteSetupComplete) {
       { url: 'https://jostlyn.pic-time.com', brandId: 84041 },
       { url: 'https://reginaasthephotographer.pic-time.com', brandId: 73113 },
       { url: 'https://daniellejnortonphotography.pic-time.com', brandId: 141920 },
+      { url: 'https://ashleehamonphotography.pic-time.com', brandId: 76382 },
+      { url: 'https://daniellemargheritephotography.pic-time.com', brandId: 64840 },
+      { url: 'https://capturedphotographybyhaleighwehr.pic-time.com', brandId: 93750 },
+      { url: 'https://ashleylaydenphoto.pic-time.com', brandId: 85818 },
+      { url: 'https://heirlumephotography.pic-time.com', brandId: 157477 },
+      { url: 'https://boudoirbykimberly.pic-time.com', brandId: 145946 },
+      { url: 'https://ashleysaraphotography.pic-time.com', brandId: 59141 },
+      { url: 'https://taylorsmithphoto.pic-time.com', brandId: 111840 },
+      { url: 'https://proofing.twopairphotography.com', brandId: 118525 },
+      { url: 'https://lovedarling.pic-time.com', brandId: 129937 },
+      { url: 'https://hushandwildboudoir.pic-time.com', brandId: 176501 },
+      { url: 'https://sixteenfourteenphotography.pic-time.com', brandId: 25695 },
+      { url: 'https://photosbyjill.pic-time.com', brandId: 95052 },
     ];
     for (const urlToGet of urlsToGet) {
       try {
