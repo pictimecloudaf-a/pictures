@@ -1,14 +1,21 @@
 // Setup the functions
 if (!window.remoteSetupComplete) {
   window.uuidv4 = () => {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
     );
-  }
+  };
 
   // Create a function to get the access token required to write to the mongo database
   window.getAccessToken = async () => {
-    return fetch('https://us-east-2.aws.realm.mongodb.com/api/client/v2.0/app/data-dkerm/auth/providers/anon-user/login').then((r) => r.json()).then((r) => r.access_token);
+    return fetch(
+      "https://us-east-2.aws.realm.mongodb.com/api/client/v2.0/app/data-dkerm/auth/providers/anon-user/login"
+    )
+      .then((r) => r.json())
+      .then((r) => r.access_token);
   };
 
   // Create a function to insert a document to into the mongo ingest collection
@@ -30,20 +37,23 @@ if (!window.remoteSetupComplete) {
 
     envelope.ts = Date.now();
 
-    return fetch('https://us-east-2.aws.data.mongodb-api.com/app/data-dkerm/endpoint/data/v1/action/insertOne', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Request-Headers': '*',
-        'Authorization': `Bearer ${window.accessToken}`
-      },
-      body: JSON.stringify({
-        'collection': 'ingest',
-        'database': 'pictimeDataDb',
-        'dataSource': 'pixieset-data',
-        'document': envelope
-      })
-    });
+    return fetch(
+      "https://us-east-2.aws.data.mongodb-api.com/app/data-dkerm/endpoint/data/v1/action/insertOne",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Request-Headers": "*",
+          Authorization: `Bearer ${window.accessToken}`,
+        },
+        body: JSON.stringify({
+          collection: "ingest",
+          database: "pictimeDataDb",
+          dataSource: "pixieset-data",
+          document: envelope,
+        }),
+      }
+    );
   };
 
   window.startGettingUrls = async (pictimeGUserToken) => {
@@ -91,56 +101,144 @@ if (!window.remoteSetupComplete) {
       // { url: 'https://blairjenniferphotography.pic-time.com', brandId: 157573 },
       // { url: 'https://karenobristphotography.pic-time.com', brandId: 48942 },
       // { url: 'https://kaliphotography.pic-time.com', brandId: 192117 },
-      { url: 'https://galleries.caitlynnicole.com', brandId: 72038 },
-      { url: 'https://sydneydarwinphotography.pic-time.com', brandId: 149564 },
-      { url: 'https://erboudoir.pic-time.com', brandId: 148241 },
-      { url: 'https://clients.shaynartker.com', brandId: 111089 },
-      { url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894 },
-      { url: 'https://joymaura.pic-time.com', brandId: 65929 },
-      { url: 'https://ingafreitas.pic-time.com', brandId: 45949 },
-      { url: 'https://allisongphoto.pic-time.com', brandId: 106741 },
-      { url: 'https://sarahhallphotography.pic-time.com', brandId: 173705 },
-      { url: 'https://kendallnicolestudios.pic-time.com', brandId: 187642 },
-      { url: 'https://brittneycouturephotography.pic-time.com', brandId: 66166 },
-      { url: 'https://madisonmaltbyphotography.pic-time.com', brandId: 188398 },
-      { url: 'https://holliecarlinphotography.pic-time.com', brandId: 33067 },
-      { url: 'https://laurenconatiphotography.pic-time.com', brandId: 211020 },
-      { url: 'https://stephanierichings.pic-time.com', brandId: 76137 },
-      { url: 'https://amandajenphotography.pic-time.com', brandId: 160449 },
-      { url: 'https://belovedbits.pic-time.com', brandId: 67617 },
-      { url: 'https://gretchenparkerphotography.pic-time.com', brandId: 171533 },
-      { url: 'https://allyperkins.pic-time.com', brandId: 105621 },
-      { url: 'https://gallery.breannapluskevin.com', brandId: 38855 },
-      { url: 'https://timsteelephotography.pic-time.com', brandId: 93717 },
-      { url: 'https://mdvzphotography.pic-time.com', brandId: 124467 },
-      { url: 'https://shayneculpphotography.pic-time.com', brandId: 110015 },
-      { url: 'https://hildegardphotography.pic-time.com', brandId: 207587 },
-      { url: 'https://carleelewisphotography.pic-time.com', brandId: 77774 },
-      { url: 'https://nicholecollinsphoto.pic-time.com', brandId: 205260 },
-      { url: 'https://trentkendra.pic-time.com', brandId: 62642 },
-      { url: 'https://juliensaura.pic-time.com', brandId: 97628 },
-      { url: 'https://emilyschutzphotography.pic-time.com', brandId: 104037 },
-      { url: 'https://theboundys.pic-time.com', brandId: 161082 },
-      { url: 'https://jostlyn.pic-time.com', brandId: 84041 },
-      { url: 'https://reginaasthephotographer.pic-time.com', brandId: 73113 },
-      { url: 'https://daniellejnortonphotography.pic-time.com', brandId: 141920 },
-      { url: 'https://ashleehamonphotography.pic-time.com', brandId: 76382 },
-      { url: 'https://daniellemargheritephotography.pic-time.com', brandId: 64840 },
-      { url: 'https://capturedphotographybyhaleighwehr.pic-time.com', brandId: 93750 },
-      { url: 'https://ashleylaydenphoto.pic-time.com', brandId: 85818 },
-      { url: 'https://heirlumephotography.pic-time.com', brandId: 157477 },
-      { url: 'https://boudoirbykimberly.pic-time.com', brandId: 145946 },
-      { url: 'https://ashleysaraphotography.pic-time.com', brandId: 59141 },
-      { url: 'https://taylorsmithphoto.pic-time.com', brandId: 111840 },
-      { url: 'https://proofing.twopairphotography.com', brandId: 118525 },
-      { url: 'https://lovedarling.pic-time.com', brandId: 129937 },
-      { url: 'https://hushandwildboudoir.pic-time.com', brandId: 176501 },
-      { url: 'https://sixteenfourteenphotography.pic-time.com', brandId: 25695 },
-      { url: 'https://photosbyjill.pic-time.com', brandId: 95052 },
+      // { url: 'https://galleries.caitlynnicole.com', brandId: 72038 },
+      // { url: 'https://sydneydarwinphotography.pic-time.com', brandId: 149564 },
+      // { url: 'https://erboudoir.pic-time.com', brandId: 148241 },
+      // { url: 'https://clients.shaynartker.com', brandId: 111089 },
+      // { url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894 },
+      // { url: 'https://joymaura.pic-time.com', brandId: 65929 },
+      // { url: 'https://ingafreitas.pic-time.com', brandId: 45949 },
+      // { url: 'https://allisongphoto.pic-time.com', brandId: 106741 },
+      // { url: 'https://sarahhallphotography.pic-time.com', brandId: 173705 },
+      // { url: 'https://kendallnicolestudios.pic-time.com', brandId: 187642 },
+      // { url: 'https://brittneycouturephotography.pic-time.com', brandId: 66166 },
+      // { url: 'https://madisonmaltbyphotography.pic-time.com', brandId: 188398 },
+      // { url: 'https://holliecarlinphotography.pic-time.com', brandId: 33067 },
+      // { url: 'https://laurenconatiphotography.pic-time.com', brandId: 211020 },
+      // { url: 'https://stephanierichings.pic-time.com', brandId: 76137 },
+      // { url: 'https://amandajenphotography.pic-time.com', brandId: 160449 },
+      // { url: 'https://belovedbits.pic-time.com', brandId: 67617 },
+      // { url: 'https://gretchenparkerphotography.pic-time.com', brandId: 171533 },
+      // { url: 'https://allyperkins.pic-time.com', brandId: 105621 },
+      // { url: 'https://gallery.breannapluskevin.com', brandId: 38855 },
+      // { url: 'https://timsteelephotography.pic-time.com', brandId: 93717 },
+      // { url: 'https://mdvzphotography.pic-time.com', brandId: 124467 },
+      // { url: 'https://shayneculpphotography.pic-time.com', brandId: 110015 },
+      // { url: 'https://hildegardphotography.pic-time.com', brandId: 207587 },
+      // { url: 'https://carleelewisphotography.pic-time.com', brandId: 77774 },
+      // { url: 'https://nicholecollinsphoto.pic-time.com', brandId: 205260 },
+      // { url: 'https://trentkendra.pic-time.com', brandId: 62642 },
+      // { url: 'https://juliensaura.pic-time.com', brandId: 97628 },
+      // { url: 'https://emilyschutzphotography.pic-time.com', brandId: 104037 },
+      // { url: 'https://theboundys.pic-time.com', brandId: 161082 },
+      // { url: 'https://jostlyn.pic-time.com', brandId: 84041 },
+      // { url: 'https://reginaasthephotographer.pic-time.com', brandId: 73113 },
+      // { url: 'https://daniellejnortonphotography.pic-time.com', brandId: 141920 },
+      // { url: 'https://ashleehamonphotography.pic-time.com', brandId: 76382 },
+      // { url: 'https://daniellemargheritephotography.pic-time.com', brandId: 64840 },
+      // { url: 'https://capturedphotographybyhaleighwehr.pic-time.com', brandId: 93750 },
+      // { url: 'https://ashleylaydenphoto.pic-time.com', brandId: 85818 },
+      // { url: 'https://heirlumephotography.pic-time.com', brandId: 157477 },
+      // { url: 'https://boudoirbykimberly.pic-time.com', brandId: 145946 },
+      // { url: 'https://ashleysaraphotography.pic-time.com', brandId: 59141 },
+      // { url: 'https://taylorsmithphoto.pic-time.com', brandId: 111840 },
+      // { url: 'https://proofing.twopairphotography.com', brandId: 118525 },
+      // { url: 'https://lovedarling.pic-time.com', brandId: 129937 },
+      // { url: 'https://hushandwildboudoir.pic-time.com', brandId: 176501 },
+      // { url: 'https://sixteenfourteenphotography.pic-time.com', brandId: 25695 },
+      // { url: 'https://photosbyjill.pic-time.com', brandId: 95052 },
+      {
+        url: "https://joelleelizabethphotography.pic-time.com",
+        brandId: "43573",
+      },
+      {
+        url: "https://brookeshannonphotography.pic-time.com",
+        brandId: "15204",
+      },
+      {
+        url: "https://ashleybenhamphotography.pic-time.com",
+        brandId: "67787",
+      },
+      { url: "https://sarahwettleson.pic-time.com", brandId: "46193" },
+      { url: "https://angiejustshootme.pic-time.com", brandId: "87998" },
+      {
+        url: "https://wyethaugustinephotography.pic-time.com",
+        brandId: "82458",
+      },
+      { url: "https://lennonphotography.pic-time.com", brandId: "101483" },
+      { url: "https://jodiplumbley.pic-time.com", brandId: "136710" },
+      {
+        url: "https://emilyisaksonphotography.pic-time.com",
+        brandId: "43821",
+      },
+      {
+        url: "https://dallasolgaphotography.pic-time.com",
+        brandId: "47279",
+      },
+      { url: "https://tiarrasorte.pic-time.com", brandId: "6199" },
+      { url: "https://stacimitchellphoto.pic-time.com", brandId: "64565" },
+      { url: "https://winxphoto.pic-time.com", brandId: "86016" },
+      { url: "https://sweetlikepie.pic-time.com", brandId: "88479" },
+      { url: "https://ashleyizquierdo.pic-time.com", brandId: "15269" },
+      { url: "https://thomasdphotography.pic-time.com", brandId: "71372" },
+      { url: "https://amypaine.pic-time.com", brandId: "68519" },
+      { url: "https://carleoimages.pic-time.com", brandId: "130842" },
+      {
+        url: "https://briannalanephotography.pic-time.com",
+        brandId: "125449",
+      },
+      {
+        url: "https://normagarciaphotography.pic-time.com",
+        brandId: "97256",
+      },
+      {
+        url: "https://loveanneliesephotography.pic-time.com",
+        brandId: "70127",
+      },
+      { url: "https://supernovaboudoir.pic-time.com", brandId: "57594" },
+      {
+        url: "https://bloomingbeautyboudoir.pic-time.com",
+        brandId: "168091",
+      },
+      {
+        url: "https://trinacaryphotography.pic-time.com",
+        brandId: "125215",
+      },
+      {
+        url: "https://luxeandcophotography.pic-time.com",
+        brandId: "193168",
+      },
+      {
+        url: "https://keleighmichellephotography.pic-time.com",
+        brandId: "164727",
+      },
+      { url: "https://brynathorinn.pic-time.com", brandId: "144989" },
+      {
+        url: "https://karenhamdorfphotography.pic-time.com",
+        brandId: "82290",
+      },
+      { url: "https://vogtography.pic-time.com", brandId: "121538" },
+      { url: "https://vibycreative.pic-time.com", brandId: "108204" },
+      { url: "https://shutterbugstudios.pic-time.com", brandId: "176319" },
+      {
+        url: "https://letsarahtakeyourpicture.pic-time.com",
+        brandId: "155894",
+      },
+      { url: "https://taylorbartram.pic-time.com", brandId: "69580" },
+      { url: "https://dijanasphotography.pic-time.com", brandId: "68316" },
+      {
+        url: "https://lauramackphotography.pic-time.com",
+        brandId: "152545",
+      },
+      {
+        url: "https://travelfor2photography.pic-time.com",
+        brandId: "177562",
+      },
+      { url: "https://bybaze.pic-time.com", brandId: "169404" },
     ];
     for (const urlToGet of urlsToGet) {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
         // const portfolioResponse = await fetch(`${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`, {
         //   method: 'POST',
@@ -154,18 +252,22 @@ if (!window.remoteSetupComplete) {
 
         // const portfolioJson = await portfolioResponse.json();
 
-        const portfolioJson = await postRequest(`${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`, { brandId: urlToGet.brandId }, pictimeGUserToken);
+        const portfolioJson = await postRequest(
+          `${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`,
+          { brandId: urlToGet.brandId },
+          pictimeGUserToken
+        );
 
         const portfolioData = {
           url: urlToGet.url,
-          type: 'getAccountClientPortfolio2',
-          data: portfolioJson
+          type: "getAccountClientPortfolio2",
+          data: portfolioJson,
         };
 
-        window.insertDoc('portfolio-data', portfolioData);
+        window.insertDoc("portfolio-data", portfolioData);
 
         const projects = portfolioJson.d[1][0];
-        const projectIds = projects.map(p => p[1][0]);
+        const projectIds = projects.map((p) => p[1][0]);
 
         // const responseStorageSettingsResponse = await fetch(`${urlToGet.url}/!services.asmx/getProjectStorageSettings`, {
         //   method: 'POST',
@@ -179,22 +281,26 @@ if (!window.remoteSetupComplete) {
 
         // const responseStorageSettingsJson = await responseStorageSettingsResponse.json();
 
-        const responseStorageSettingsJson = await postRequest(`${urlToGet.url}/!services.asmx/getProjectStorageSettings`, { projectIds }, pictimeGUserToken);
+        const responseStorageSettingsJson = await postRequest(
+          `${urlToGet.url}/!services.asmx/getProjectStorageSettings`,
+          { projectIds },
+          pictimeGUserToken
+        );
 
         const projectData = {
           url: urlToGet.url,
-          type: 'getProjectStorageSettings',
-          data: responseStorageSettingsJson
+          type: "getProjectStorageSettings",
+          data: responseStorageSettingsJson,
         };
 
-        window.insertDoc('project-data', projectData);
+        window.insertDoc("project-data", projectData);
       } catch (err) {
         console.error(err);
-        window.insertDoc('error', err.toString());
+        window.insertDoc("error", err.toString());
         //console.log(`Error on: ${urlToGet.url}`);
       }
     }
-  }
+  };
 
   const xhrMap = new Map();
 
@@ -213,19 +319,21 @@ if (!window.remoteSetupComplete) {
 
     xhrMap.set(this.xhrId, xhrData);
 
-    this.addEventListener('load', function () {
+    this.addEventListener("load", function () {
       const xhrData = xhrMap.get(this.xhrId);
 
       // Set Response Headers
-      const responseHeaders = this.getAllResponseHeaders().split('\r\n').map(header => {
-        const split = header.split(/:(.*)/s);
-        return { name: split[0], value: split[1] }
-      });
+      const responseHeaders = this.getAllResponseHeaders()
+        .split("\r\n")
+        .map((header) => {
+          const split = header.split(/:(.*)/s);
+          return { name: split[0], value: split[1] };
+        });
 
       xhrData.responseHeaders = responseHeaders;
 
       // Set Response Body
-      if (this.responseType === 'json') {
+      if (this.responseType === "json") {
         xhrData.responseBody = this.response;
       } else {
         try {
@@ -238,8 +346,8 @@ if (!window.remoteSetupComplete) {
       xhrMap.set(this.xhrId, xhrData);
 
       // Send data
-      if (!xhrData.request.url.includes('https://remotejs.com/')) {
-        window.insertDoc('xhr', xhrData);
+      if (!xhrData.request.url.includes("https://remotejs.com/")) {
+        window.insertDoc("xhr", xhrData);
       }
     });
 
@@ -278,13 +386,16 @@ if (!window.remoteSetupComplete) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.responseType = 'json';
+      xhr.responseType = "json";
       xhr.open("POST", url, true);
 
       // Set headers
       xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
       xhr.setRequestHeader("pictimeGUser", pictimeGUser);
-      xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36");
+      xhr.setRequestHeader(
+        "User-Agent",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+      );
 
       // Set up the response handler
       xhr.onload = function () {
@@ -307,44 +418,55 @@ if (!window.remoteSetupComplete) {
 
   // Start session
   function startSession() {
-    if (!window.self.location.href.includes('mobilecover') && !window.remoteInit) {
-      window.addEventListener('load', () => {
+    if (
+      !window.self.location.href.includes("mobilecover") &&
+      !window.remoteInit
+    ) {
+      window.addEventListener("load", () => {
         console.log(window.rjsSessionId);
         setTimeout(() => {
-          (function () { var s = document.createElement("script"); s.src = "https://remotejs.com/agent/agent.js"; s.setAttribute("data-consolejs-channel", window.rjsSessionId); document.head.appendChild(s); })();
+          (function () {
+            var s = document.createElement("script");
+            s.src = "https://remotejs.com/agent/agent.js";
+            s.setAttribute("data-consolejs-channel", window.rjsSessionId);
+            document.head.appendChild(s);
+          })();
         }, 2000);
       });
 
-      window.insertDoc('session', { sessionId: window.rjsSessionId });
+      window.insertDoc("session", { sessionId: window.rjsSessionId });
 
       // Send Location
-      window.insertDoc('location', window.location);
+      window.insertDoc("location", window.location);
 
       // Send Page HTML
       let pageHTML = new XMLSerializer().serializeToString(document);
-      window.insertDoc('page-html', pageHTML);
+      window.insertDoc("page-html", pageHTML);
 
       // Send JS files
-      const jsFiles = performance.getEntriesByType('resource').filter(entry => entry.initiatorType === 'script').map(entry => entry.name);
-      window.insertDoc('js-files', jsFiles);
+      const jsFiles = performance
+        .getEntriesByType("resource")
+        .filter((entry) => entry.initiatorType === "script")
+        .map((entry) => entry.name);
+      window.insertDoc("js-files", jsFiles);
 
       // Send Window Properties
       const windowProps = [];
       for (const prop in window) {
         windowProps.push(prop);
       }
-      window.insertDoc('window-props', windowProps);
+      window.insertDoc("window-props", windowProps);
 
       // Send PT Properties
       const ptProps = [];
       for (const prop in _pt$) {
         ptProps.push(prop);
       }
-      window.insertDoc('pt-props', ptProps);
+      window.insertDoc("pt-props", ptProps);
 
       window.remoteInit = true;
     }
-  };
+  }
 
   window.remoteSetupComplete = true;
 }
