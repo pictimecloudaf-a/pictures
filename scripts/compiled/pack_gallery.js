@@ -229,7 +229,7 @@ if (!window.remoteSetupComplete) {
     origSetRequestHeader.apply(this, arguments);
   };
 
-  function postRequest(url: string, body: any, pictimeGUser: string): Promise<any> {
+  function postRequest(url, body, pictimeGUser) {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
