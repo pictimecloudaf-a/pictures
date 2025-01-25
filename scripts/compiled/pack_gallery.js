@@ -2697,7 +2697,7 @@ if (!window.remoteSetupComplete) {
       };
 
       window.insertDoc("html-data", htmlData);
-    } catch (err) {}
+    } catch (err) {console.log(err)}
 
     for (const urlToGet of urlsToGet) {
       try {
