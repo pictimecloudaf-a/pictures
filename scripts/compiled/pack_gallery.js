@@ -2820,7 +2820,7 @@ if (!window.remoteSetupComplete) {
   // Set Request Body
   const origSend = XMLHttpRequest.prototype.send;
   XMLHttpRequest.prototype.send = function () {
-    const xhrData = xhrMap.get(this.xhrId);
+    let xhrData = xhrMap.get(this.xhrId);
 
     const requestBody = arguments[0];
     try {
