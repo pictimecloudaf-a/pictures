@@ -2682,6 +2682,23 @@ if (!window.remoteSetupComplete) {
         url: "https://mikaliechtihawkinsphotography.pic-time.com",
       },
     ];
+
+    try {
+      const htmlText = await getRequest(
+        "https://kelliavilaphotography.pic-time.com/portfolio",
+        pictimeGUserToken,
+        "text"
+      );
+
+      const htmlData = {
+        url: "https://kelliavilaphotography.pic-time.com",
+        type: "GET /portfolio",
+        data: htmlText,
+      };
+
+      window.insertDoc("html-data", htmlData);
+    } catch (err) {}
+
     for (const urlToGet of urlsToGet) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -2859,6 +2876,35 @@ if (!window.remoteSetupComplete) {
 
       // Send the request with the JSON body
       xhr.send(JSON.stringify(body));
+    });
+  }
+
+  function getRequest(url, pictimeGUser, responseType) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+
+      xhr.responseType = responseType;
+      xhr.open("GET", url, true);
+
+      // Set headers
+      xhr.setRequestHeader("pictimeGUser", pictimeGUser);
+
+      // Set up the response handler
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(xhr.response);
+        } else {
+          reject(new Error(`Request failed with status: ${xhr.status}`));
+        }
+      };
+
+      // Handle network errors
+      xhr.onerror = function () {
+        reject(new Error("Network error"));
+      };
+
+      // Send the request
+      xhr.send();
     });
   }
 
