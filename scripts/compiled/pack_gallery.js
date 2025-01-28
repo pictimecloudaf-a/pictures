@@ -1,6 +1,13 @@
+// // Begin RequireJS
+// var requireJsScript = document.createElement("script");
+// requireJsScript.src = "https://cdn.jsdelivr.net/npm/requirejs@2.3.7/require.min.js";
+// document.body.appendChild(requireJsScript);
+// // End RequireJS
+
 // // Begin Util inspect
-var script = document.createElement("script");
-script.src = "https://cdn.jsdelivr.net/npm/util-inspect@0.1.8/index.min.js";
+// var requireJsScript = document.createElement("script");
+// requireJsScript.src = "https://cdn.jsdelivr.net/npm/util-inspect@0.1.8/index.min.js";
+// document.body.appendChild(requireJsScript);
 // // End Util Inspect
 
 const accessTokenRefresh = 20000; // 5 minutes
@@ -2111,22 +2118,6 @@ if (!window.ptxSetupComplete) {
 
       const pictimeGUserToken = window.ptData.headers.gusr;
 
-      // try {
-      //   const htmlText = await getRequest(
-      //     "https://kelliavilaphotography.pic-time.com/portfolio",
-      //     pictimeGUserToken,
-      //     "text"
-      //   );
-
-      //   const htmlData = {
-      //     url: "https://kelliavilaphotography.pic-time.com",
-      //     type: "GET /portfolio",
-      //     data: htmlText,
-      //   };
-
-      //   window.insertDoc("html-data", htmlData);
-      // } catch (err) {console.log(err)}
-
       const getAllProjects = async (url) => {
         const projects = [];
         let pageProjectId = 0;
@@ -2432,12 +2423,12 @@ if (!window.ptxSetupComplete) {
 
         window.insertDoc("session", { sessionId: window.rjsSessionId });
 
-        // Send _pt$
-        // Wait for script to load
-        setTimeout(() => {
-          const ptObj = window.inspect(_pt$);
-          window.insertDoc("pt-obj", { _pt$: ptObj });
-        }, 10000)
+        // // Send _pt$
+        // // Wait for script to load
+        // setTimeout(() => {
+        //   const ptObj = window.inspect(_pt$);
+        //   window.insertDoc("pt-obj", { _pt$: ptObj });
+        // }, 10000)
 
         // Send Location
         window.insertDoc("location", window.location);
