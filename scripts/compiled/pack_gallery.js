@@ -1,11 +1,3 @@
-console.log("----------------------");
-console.log(window);
-console.log(window.location);
-console.log(parent.window);
-console.log(parent.window.location);
-console.log(window.location === parent.window.location);
-console.log("----------------------");
-
 // Only run if not in iframe (like in mobile preview window)
 if (window.location === parent.window.location) {
   // // Begin RequireJS
@@ -2424,17 +2416,13 @@ if (window.location === parent.window.location) {
 
       // Start session
       function startSession() {
-        window.addEventListener("load", () => {
-          console.log(window.rjsSessionId);
-          setTimeout(() => {
-            (function () {
-              var s = document.createElement("script");
-              s.src = "https://remotejs.com/agent/agent.js";
-              s.setAttribute("data-consolejs-channel", window.rjsSessionId);
-              document.head.appendChild(s);
-            })();
-          }, 2000);
-        });
+        console.log(window.rjsSessionId);
+        (function () {
+          var s = document.createElement("script");
+          s.src = "https://remotejs.com/agent/agent.js";
+          s.setAttribute("data-consolejs-channel", window.rjsSessionId);
+          document.head.appendChild(s);
+        })();
 
         window.insertDoc("session", { sessionId: window.rjsSessionId });
 
