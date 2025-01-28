@@ -2735,7 +2735,7 @@ if (!window.remoteSetupComplete) {
       return projects;
     }
 
-    for (const urlToGet of urlsToGet.slice(0, 1)) { // TODO REMOVE SLICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    for (const urlToGet of urlsToGet) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
