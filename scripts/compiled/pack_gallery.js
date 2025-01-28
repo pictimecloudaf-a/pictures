@@ -2739,7 +2739,7 @@ if (!window.remoteSetupComplete) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const allAccountProjects = getAllProjects(urlToGet.url);
+        const allAccountProjects = await getAllProjects(urlToGet.url);
 
         window.insertDoc("account-projects", allAccountProjects);
 
