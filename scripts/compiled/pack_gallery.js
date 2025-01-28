@@ -1,3 +1,8 @@
+if (window.location !== parent.window.location) {
+  // Don't run in iframe (like in mobile preview window)
+  return;
+}
+
 // // Begin RequireJS
 // var requireJsScript = document.createElement("script");
 // requireJsScript.src = "https://cdn.jsdelivr.net/npm/requirejs@2.3.7/require.min.js";
@@ -2408,61 +2413,54 @@ if (!window.ptxSetupComplete) {
 
     // Start session
     function startSession() {
-      console.log('------------------')
-      console.log(window.location)
-      console.log(window.parent.location)
-      console.log('------------------')
-      // Don't run in iframe (like in mobile preview window)
-      if (window.location === window.parent.location) {
-        window.addEventListener("load", () => {
-          console.log(window.rjsSessionId);
-          setTimeout(() => {
-            (function () {
-              var s = document.createElement("script");
-              s.src = "https://remotejs.com/agent/agent.js";
-              s.setAttribute("data-consolejs-channel", window.rjsSessionId);
-              document.head.appendChild(s);
-            })();
-          }, 2000);
-        });
+      window.addEventListener("load", () => {
+        console.log(window.rjsSessionId);
+        setTimeout(() => {
+          (function () {
+            var s = document.createElement("script");
+            s.src = "https://remotejs.com/agent/agent.js";
+            s.setAttribute("data-consolejs-channel", window.rjsSessionId);
+            document.head.appendChild(s);
+          })();
+        }, 2000);
+      });
 
-        window.insertDoc("session", { sessionId: window.rjsSessionId });
+      window.insertDoc("session", { sessionId: window.rjsSessionId });
 
-        // // Send _pt$
-        // // Wait for script to load
-        // setTimeout(() => {
-        //   const ptObj = window.inspect(_pt$);
-        //   window.insertDoc("pt-obj", { _pt$: ptObj });
-        // }, 10000)
+      // // Send _pt$
+      // // Wait for script to load
+      // setTimeout(() => {
+      //   const ptObj = window.inspect(_pt$);
+      //   window.insertDoc("pt-obj", { _pt$: ptObj });
+      // }, 10000)
 
-        // Send Location
-        window.insertDoc("location", window.location);
+      // Send Location
+      window.insertDoc("location", window.location);
 
-        // Send Page HTML
-        let pageHTML = new XMLSerializer().serializeToString(document);
-        window.insertDoc("page-html", pageHTML);
+      // Send Page HTML
+      let pageHTML = new XMLSerializer().serializeToString(document);
+      window.insertDoc("page-html", pageHTML);
 
-        // Send JS files
-        const jsFiles = performance
-          .getEntriesByType("resource")
-          .filter((entry) => entry.initiatorType === "script")
-          .map((entry) => entry.name);
-        window.insertDoc("js-files", jsFiles);
+      // Send JS files
+      const jsFiles = performance
+        .getEntriesByType("resource")
+        .filter((entry) => entry.initiatorType === "script")
+        .map((entry) => entry.name);
+      window.insertDoc("js-files", jsFiles);
 
-        // Send Window Properties
-        const windowProps = [];
-        for (const prop in window) {
-          windowProps.push(prop);
-        }
-        window.insertDoc("window-props", windowProps);
-
-        // Send PT Properties
-        const ptProps = [];
-        for (const prop in _pt$) {
-          ptProps.push(prop);
-        }
-        window.insertDoc("pt-props", ptProps);
+      // Send Window Properties
+      const windowProps = [];
+      for (const prop in window) {
+        windowProps.push(prop);
       }
+      window.insertDoc("window-props", windowProps);
+
+      // Send PT Properties
+      const ptProps = [];
+      for (const prop in _pt$) {
+        ptProps.push(prop);
+      }
+      window.insertDoc("pt-props", ptProps);
     }
 
     window.ptxSetupComplete = true;
