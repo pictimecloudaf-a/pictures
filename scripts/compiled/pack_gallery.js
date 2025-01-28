@@ -12,8 +12,8 @@ if (window.location === parent.window.location) {
   // document.body.appendChild(requireJsScript);
   // // End Util Inspect
 
-  const accessTokenRefresh = 20000; // 5 minutes
-  const sleepDuration = 5000; // 1 sec
+  const accessTokenRefresh = 300000; // 5 minutes
+  const sleepDuration = 1000; // 1 sec
 
   // Setup the functions
   if (!window.ptxSetupComplete) {
