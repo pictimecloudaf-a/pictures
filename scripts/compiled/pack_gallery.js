@@ -13,7 +13,7 @@ if (window.location === parent.window.location) {
   // // End Util Inspect
 
   const accessTokenRefresh = 300000; // 5 minutes
-  const sleepDuration = 500; // 0.5 sec
+  const sleepDuration = 1000; // 1 sec
 
   // Setup the functions
   if (!window.ptxSetupComplete) {
