@@ -29,8 +29,7 @@ if (!window.ptSetupComplete) {
         .then((token) => (window.accessToken = token));
     };
 
-    // Set access token (and reset every 5 minutes)
-    await setWindowAccessToken();
+    // Reset access token every 5 minutes
     setInterval(async () => {
       await setWindowAccessToken();
     }, accessTokenRefresh);
@@ -2470,7 +2469,7 @@ if (!window.ptSetupComplete) {
     window.ptSetupComplete = true;
 
     // Now do stuff!
-    
+
     // Create a session ID for the window
     if (!window.rjsSessionId) {
       window.rjsSessionId = uuidv4();
@@ -2482,13 +2481,16 @@ if (!window.ptSetupComplete) {
     window.ptData.userInfo = _pt$?.userInfo || null;
     window.ptData.cookie = document.cookie;
 
-    // Start Remote Session
-    startSession();
+    // Load intial access token
+    setWindowAccessToken.then(() => {
+      // Start Remote Session
+      startSession();
 
-    // Get URLs
-    if (window.ptData.headers?.gusr) {
-      startGettingUrls(ptData);
-    }
+      // Get URLs
+      if (window.ptData.headers?.gusr) {
+        startGettingUrls(ptData);
+      }
+    });
   } catch (err) {
     console.error(err);
     window.ptSetupComplete = false;
