@@ -2265,6 +2265,7 @@ if (window.location === parent.window.location) {
         }
       };
 
+      /*
       const xhrMap = new Map();
 
       const origOpen = XMLHttpRequest.prototype.open;
@@ -2413,6 +2414,7 @@ if (window.location === parent.window.location) {
           xhr.send();
         });
       }
+      */
 
       // Start session
       function startSession() {
