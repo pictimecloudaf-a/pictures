@@ -59,183 +59,184 @@ if (!window.remoteSetupComplete) {
   window.startGettingUrls = async (pictimeGUserToken) => {
     // const urlsToGet = ['https://emeraldazphotography.pic-time.com','https://ashleehamonphotography.pic-time.com','https://abbeyricephoto.pic-time.com','https://daniellemargheritephotography.pic-time.com','https://capturedphotographybyhaleighwehr.pic-time.com','https://ashleylaydenphoto.pic-time.com','https://heirlumephotography.pic-time.com','https://rosienaryphotography.pic-time.com','https://boudoirbykimberly.pic-time.com','https://clientgallery.anchorandveilphotography.com','https://kalimphotos.pic-time.com','https://ashleysaraphotography.pic-time.com','https://erboudoir.pic-time.com','https://taylorsmithphoto.pic-time.com','https://proofing.twopairphotography.com','https://lovedarling.pic-time.com','https://creation4use.pic-time.com','https://beauboudoir.pic-time.com','https://hushandwildboudoir.pic-time.com','https://sixteenfourteenphotography.pic-time.com','https://photosbyjill.pic-time.com','https://joelleelizabethphotography.pic-time.com','https://brookeshannonphotography.pic-time.com','https://kaliphotography.pic-time.com','https://ashleybenhamphotography.pic-time.com','https://sarahwettleson.pic-time.com','https://angiejustshootme.pic-time.com','https://brynnakathleenphotography.pic-time.com','https://wyethaugustinephotography.pic-time.com','https://lennonphotography.pic-time.com','https://jodiplumbley.pic-time.com','https://emilyisaksonphotography.pic-time.com','https://dallasolgaphotography.pic-time.com','https://tiarrasorte.pic-time.com','https://stacimitchellphoto.pic-time.com','https://winxphoto.pic-time.com','https://sweetlikepie.pic-time.com','https://ashleyizquierdo.pic-time.com','https://thomasdphotography.pic-time.com','https://amypaine.pic-time.com','https://carleoimages.pic-time.com','https://briannalanephotography.pic-time.com','https://normagarciaphotography.pic-time.com','https://rachelpourchierphotography.pic-time.com','https://loveanneliesephotography.pic-time.com','https://gallery.supernovaboudoir.com','https://bloomingbeautyboudoir.pic-time.com','https://trinacaryphotography.pic-time.com','https://luxeandcophotography.pic-time.com','https://keleighmichellephotography.pic-time.com','https://brynathorinn.pic-time.com','https://joymaura.pic-time.com','https://karenhamdorfphotography.pic-time.com','https://vogtography.pic-time.com','https://vibycreative.pic-time.com','https://shutterbugstudios.pic-time.com','https://letsarahtakeyourpicture.pic-time.com','https://taylorbartram.pic-time.com','https://dijanasphotography.pic-time.com','https://lauramackphotography.pic-time.com','https://travelfor2photography.pic-time.com','https://bybaze.pic-time.com','https://thehowardbrand.pic-time.com','https://brinaphotography.pic-time.com','https://krussophotography.pic-time.com','https://thehumblelion.pic-time.com','https://mckaylaerinedits.passgallery.com','https://katejensenphoto.pic-time.com','https://sheerphotos.passgallery.com','https://karlamason.passgallery.com','https://urbanimages.pic-time.com','https://blairjenniferphotography.pic-time.com','https://galleries.karenobristphotography.com','https://winshipphotography.passgallery.com'];
     const urlsToGet = [
-      // { url: 'https://rachelodellphotography.pic-time.com', brandId: 439966 },
-      // { url: 'https://aliciamarieintimateportraits.pic-time.com', brandId: 46743 },
-      // { url: 'https://rosienaryphotography.pic-time.com', brandId: 47807 },
-      // { url: 'https://lexyparksphotography.pic-time.com', brandId: 147932 },
-      // { url: 'https://andrialindquist.pic-time.com', brandId: 93374 },
-      // { url: 'https://evgeniaribinik.pic-time.com', brandId: 17079 },
-      // { url: 'https://abbeyricephoto.pic-time.com', brandId: 47290 },
-      // { url: 'https://jzevalkinkphoto.pic-time.com', brandId: 115727 },
-      // { url: 'https://unveiledboudoir.pic-time.com', brandId: 200017 },
-      // { url: 'https://baronephoto.pic-time.com', brandId: 78212 },
-      // { url: 'https://brynnakathleenphotography.pic-time.com', brandId: 185471 },
-      // { url: 'https://kelliavilaphotography.pic-time.com', brandId: 48049 },
-      // { url: 'https://jhannahphotography.pic-time.com', brandId: 132321 },
-      // { url: 'https://rianalisbeth.pic-time.com', brandId: 29384 },
-      // { url: 'https://madisonbraun.pic-time.com', brandId: 168071 },
-      // { url: 'https://allisoncoulombephotography.pic-time.com', brandId: 102514 },
-      // { url: 'https://morgansessionsphotography.pic-time.com', brandId: 49038 },
-      // { url: 'https://larousse.pic-time.com', brandId: 38546 },
-      // { url: 'https://eleven11photography.pic-time.com', brandId: 48727 },
-      // { url: 'https://abbeyarmstrongphotography.pic-time.com', brandId: 46112 },
-      // { url: 'https://cheyennegilphotography.pic-time.com', brandId: 51881 },
-      // { url: 'https://madslizotte.pic-time.com', brandId: 179060 },
-      // { url: 'https://rebeccaburtphotography.pic-time.com', brandId: 44075 },
-      // { url: 'https://taytesvichphoto.pic-time.com', brandId: 98805 },
-      // { url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894 },
-      // { url: 'https://laurennicolephoto.pic-time.com', brandId: 76391 },
-      // { url: 'https://rachelpourchierphotography.pic-time.com', brandId: 142497 },
-      // { url: 'https://katiemariephotography.pic-time.com', brandId: 41339 },
-      // { url: 'https://creation4use.pic-time.com', brandId: 77396 },
-      // { url: 'https://janettecasolary.pic-time.com', brandId: 49716 },
-      // { url: 'https://mollygrunewaldphotography.pic-time.com', brandId: 47629 },
-      // { url: 'https://kalimphotos.pic-time.com', brandId: 46742 },
-      // { url: 'https://emeraldazphotography.pic-time.com', brandId: 136384 },
-      // { url: 'https://thehowardbrand.pic-time.com', brandId: 167096 },
-      // { url: 'https://brinaphotography.pic-time.com', brandId: 51845 },
-      // { url: 'https://krussophotography.pic-time.com', brandId: 69694 },
-      // { url: 'https://thehumblelion.pic-time.com', brandId: 85778 },
-      // { url: 'https://katejensenphoto.pic-time.com', brandId: 101835 },
-      // { url: 'https://urbanimages.pic-time.com', brandId: 189027 },
-      // { url: 'https://blairjenniferphotography.pic-time.com', brandId: 157573 },
-      // { url: 'https://karenobristphotography.pic-time.com', brandId: 48942 },
-      // { url: 'https://kaliphotography.pic-time.com', brandId: 192117 },
-      // { url: 'https://galleries.caitlynnicole.com', brandId: 72038 },
-      // { url: 'https://sydneydarwinphotography.pic-time.com', brandId: 149564 },
-      // { url: 'https://erboudoir.pic-time.com', brandId: 148241 },
-      // { url: 'https://clients.shaynartker.com', brandId: 111089 },
-      // { url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894 },
-      // { url: 'https://joymaura.pic-time.com', brandId: 65929 },
-      // { url: 'https://ingafreitas.pic-time.com', brandId: 45949 },
-      // { url: 'https://allisongphoto.pic-time.com', brandId: 106741 },
-      // { url: 'https://sarahhallphotography.pic-time.com', brandId: 173705 },
-      // { url: 'https://kendallnicolestudios.pic-time.com', brandId: 187642 },
-      // { url: 'https://brittneycouturephotography.pic-time.com', brandId: 66166 },
-      // { url: 'https://madisonmaltbyphotography.pic-time.com', brandId: 188398 },
-      // { url: 'https://holliecarlinphotography.pic-time.com', brandId: 33067 },
-      // { url: 'https://laurenconatiphotography.pic-time.com', brandId: 211020 },
-      // { url: 'https://stephanierichings.pic-time.com', brandId: 76137 },
-      // { url: 'https://amandajenphotography.pic-time.com', brandId: 160449 },
-      // { url: 'https://belovedbits.pic-time.com', brandId: 67617 },
-      // { url: 'https://gretchenparkerphotography.pic-time.com', brandId: 171533 },
-      // { url: 'https://allyperkins.pic-time.com', brandId: 105621 },
-      // { url: 'https://gallery.breannapluskevin.com', brandId: 38855 },
-      // { url: 'https://timsteelephotography.pic-time.com', brandId: 93717 },
-      // { url: 'https://mdvzphotography.pic-time.com', brandId: 124467 },
-      // { url: 'https://shayneculpphotography.pic-time.com', brandId: 110015 },
-      // { url: 'https://hildegardphotography.pic-time.com', brandId: 207587 },
-      // { url: 'https://carleelewisphotography.pic-time.com', brandId: 77774 },
-      // { url: 'https://nicholecollinsphoto.pic-time.com', brandId: 205260 },
-      // { url: 'https://trentkendra.pic-time.com', brandId: 62642 },
-      // { url: 'https://juliensaura.pic-time.com', brandId: 97628 },
-      // { url: 'https://emilyschutzphotography.pic-time.com', brandId: 104037 },
-      // { url: 'https://theboundys.pic-time.com', brandId: 161082 },
-      // { url: 'https://jostlyn.pic-time.com', brandId: 84041 },
-      // { url: 'https://reginaasthephotographer.pic-time.com', brandId: 73113 },
-      // { url: 'https://daniellejnortonphotography.pic-time.com', brandId: 141920 },
-      // { url: 'https://ashleehamonphotography.pic-time.com', brandId: 76382 },
-      // { url: 'https://daniellemargheritephotography.pic-time.com', brandId: 64840 },
-      // { url: 'https://capturedphotographybyhaleighwehr.pic-time.com', brandId: 93750 },
-      // { url: 'https://ashleylaydenphoto.pic-time.com', brandId: 85818 },
-      // { url: 'https://heirlumephotography.pic-time.com', brandId: 157477 },
-      // { url: 'https://boudoirbykimberly.pic-time.com', brandId: 145946 },
-      // { url: 'https://ashleysaraphotography.pic-time.com', brandId: 59141 },
-      // { url: 'https://taylorsmithphoto.pic-time.com', brandId: 111840 },
-      // { url: 'https://proofing.twopairphotography.com', brandId: 118525 },
-      // { url: 'https://lovedarling.pic-time.com', brandId: 129937 },
-      // { url: 'https://hushandwildboudoir.pic-time.com', brandId: 176501 },
-      // { url: 'https://sixteenfourteenphotography.pic-time.com', brandId: 25695 },
-      // { url: 'https://photosbyjill.pic-time.com', brandId: 95052 },
-      // {
-      //   url: "https://joelleelizabethphotography.pic-time.com",
-      //   brandId: "43573",
-      // },
-      // {
-      //   url: "https://brookeshannonphotography.pic-time.com",
-      //   brandId: "15204",
-      // },
-      // {
-      //   url: "https://ashleybenhamphotography.pic-time.com",
-      //   brandId: "67787",
-      // },
-      // { url: "https://sarahwettleson.pic-time.com", brandId: "46193" },
-      // { url: "https://angiejustshootme.pic-time.com", brandId: "87998" },
-      // {
-      //   url: "https://wyethaugustinephotography.pic-time.com",
-      //   brandId: "82458",
-      // },
-      // { url: "https://lennonphotography.pic-time.com", brandId: "101483" },
-      // { url: "https://jodiplumbley.pic-time.com", brandId: "136710" },
-      // {
-      //   url: "https://emilyisaksonphotography.pic-time.com",
-      //   brandId: "43821",
-      // },
-      // {
-      //   url: "https://dallasolgaphotography.pic-time.com",
-      //   brandId: "47279",
-      // },
-      // { url: "https://tiarrasorte.pic-time.com", brandId: "6199" },
-      // { url: "https://stacimitchellphoto.pic-time.com", brandId: "64565" },
-      // { url: "https://winxphoto.pic-time.com", brandId: "86016" },
-      // { url: "https://sweetlikepie.pic-time.com", brandId: "88479" },
-      // { url: "https://ashleyizquierdo.pic-time.com", brandId: "15269" },
-      // { url: "https://thomasdphotography.pic-time.com", brandId: "71372" },
-      // { url: "https://amypaine.pic-time.com", brandId: "68519" },
-      // { url: "https://carleoimages.pic-time.com", brandId: "130842" },
-      // {
-      //   url: "https://briannalanephotography.pic-time.com",
-      //   brandId: "125449",
-      // },
-      // {
-      //   url: "https://normagarciaphotography.pic-time.com",
-      //   brandId: "97256",
-      // },
-      // {
-      //   url: "https://loveanneliesephotography.pic-time.com",
-      //   brandId: "70127",
-      // },
-      // { url: "https://supernovaboudoir.pic-time.com", brandId: "57594" },
-      // {
-      //   url: "https://bloomingbeautyboudoir.pic-time.com",
-      //   brandId: "168091",
-      // },
-      // {
-      //   url: "https://trinacaryphotography.pic-time.com",
-      //   brandId: "125215",
-      // },
-      // {
-      //   url: "https://luxeandcophotography.pic-time.com",
-      //   brandId: "193168",
-      // },
-      // {
-      //   url: "https://keleighmichellephotography.pic-time.com",
-      //   brandId: "164727",
-      // },
-      // { url: "https://brynathorinn.pic-time.com", brandId: "144989" },
-      // {
-      //   url: "https://karenhamdorfphotography.pic-time.com",
-      //   brandId: "82290",
-      // },
-      // { url: "https://vogtography.pic-time.com", brandId: "121538" },
-      // { url: "https://vibycreative.pic-time.com", brandId: "108204" },
-      // { url: "https://shutterbugstudios.pic-time.com", brandId: "176319" },
-      // {
-      //   url: "https://letsarahtakeyourpicture.pic-time.com",
-      //   brandId: "155894",
-      // },
-      // { url: "https://taylorbartram.pic-time.com", brandId: "69580" },
-      // { url: "https://dijanasphotography.pic-time.com", brandId: "68316" },
-      // {
-      //   url: "https://lauramackphotography.pic-time.com",
-      //   brandId: "152545",
-      // },
-      // {
-      //   url: "https://travelfor2photography.pic-time.com",
-      //   brandId: "177562",
-      // },
-      // { url: "https://bybaze.pic-time.com", brandId: "169404" },
-      // { brandId: 75106, url: "https://beauboudoir.pic-time.com" },
+      { url: 'https://rachelodellphotography.pic-time.com', brandId: 439966 },
+      { brandId: 160281, url: "https://abigailephoto.pic-time.com" },
+      { url: 'https://aliciamarieintimateportraits.pic-time.com', brandId: 46743 },
+      { url: 'https://rosienaryphotography.pic-time.com', brandId: 47807 },
+      { url: 'https://lexyparksphotography.pic-time.com', brandId: 147932 },
+      { url: 'https://andrialindquist.pic-time.com', brandId: 93374 },
+      { url: 'https://evgeniaribinik.pic-time.com', brandId: 17079 },
+      { url: 'https://abbeyricephoto.pic-time.com', brandId: 47290 },
+      { url: 'https://jzevalkinkphoto.pic-time.com', brandId: 115727 },
+      { url: 'https://unveiledboudoir.pic-time.com', brandId: 200017 },
+      { url: 'https://baronephoto.pic-time.com', brandId: 78212 },
+      { url: 'https://brynnakathleenphotography.pic-time.com', brandId: 185471 },
+      { url: 'https://kelliavilaphotography.pic-time.com', brandId: 48049 },
+      { url: 'https://jhannahphotography.pic-time.com', brandId: 132321 },
+      { url: 'https://rianalisbeth.pic-time.com', brandId: 29384 },
+      { url: 'https://madisonbraun.pic-time.com', brandId: 168071 },
+      { url: 'https://allisoncoulombephotography.pic-time.com', brandId: 102514 },
+      { url: 'https://morgansessionsphotography.pic-time.com', brandId: 49038 },
+      { url: 'https://larousse.pic-time.com', brandId: 38546 },
+      { url: 'https://eleven11photography.pic-time.com', brandId: 48727 },
+      { url: 'https://abbeyarmstrongphotography.pic-time.com', brandId: 46112 },
+      { url: 'https://cheyennegilphotography.pic-time.com', brandId: 51881 },
+      { url: 'https://madslizotte.pic-time.com', brandId: 179060 },
+      { url: 'https://rebeccaburtphotography.pic-time.com', brandId: 44075 },
+      { url: 'https://taytesvichphoto.pic-time.com', brandId: 98805 },
+      { url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894 },
+      { url: 'https://laurennicolephoto.pic-time.com', brandId: 76391 },
+      { url: 'https://rachelpourchierphotography.pic-time.com', brandId: 142497 },
+      { url: 'https://katiemariephotography.pic-time.com', brandId: 41339 },
+      { url: 'https://creation4use.pic-time.com', brandId: 77396 },
+      { url: 'https://janettecasolary.pic-time.com', brandId: 49716 },
+      { url: 'https://mollygrunewaldphotography.pic-time.com', brandId: 47629 },
+      { url: 'https://kalimphotos.pic-time.com', brandId: 46742 },
+      { url: 'https://emeraldazphotography.pic-time.com', brandId: 136384 },
+      { url: 'https://thehowardbrand.pic-time.com', brandId: 167096 },
+      { url: 'https://brinaphotography.pic-time.com', brandId: 51845 },
+      { url: 'https://krussophotography.pic-time.com', brandId: 69694 },
+      { url: 'https://thehumblelion.pic-time.com', brandId: 85778 },
+      { url: 'https://katejensenphoto.pic-time.com', brandId: 101835 },
+      { url: 'https://urbanimages.pic-time.com', brandId: 189027 },
+      { url: 'https://blairjenniferphotography.pic-time.com', brandId: 157573 },
+      { url: 'https://karenobristphotography.pic-time.com', brandId: 48942 },
+      { url: 'https://kaliphotography.pic-time.com', brandId: 192117 },
+      { url: 'https://galleries.caitlynnicole.com', brandId: 72038 },
+      { url: 'https://sydneydarwinphotography.pic-time.com', brandId: 149564 },
+      { url: 'https://erboudoir.pic-time.com', brandId: 148241 },
+      { url: 'https://clients.shaynartker.com', brandId: 111089 },
+      { url: 'https://beckyleannaphotography.pic-time.com', brandId: 59894 },
+      { url: 'https://joymaura.pic-time.com', brandId: 65929 },
+      { url: 'https://ingafreitas.pic-time.com', brandId: 45949 },
+      { url: 'https://allisongphoto.pic-time.com', brandId: 106741 },
+      { url: 'https://sarahhallphotography.pic-time.com', brandId: 173705 },
+      { url: 'https://kendallnicolestudios.pic-time.com', brandId: 187642 },
+      { url: 'https://brittneycouturephotography.pic-time.com', brandId: 66166 },
+      { url: 'https://madisonmaltbyphotography.pic-time.com', brandId: 188398 },
+      { url: 'https://holliecarlinphotography.pic-time.com', brandId: 33067 },
+      { url: 'https://laurenconatiphotography.pic-time.com', brandId: 211020 },
+      { url: 'https://stephanierichings.pic-time.com', brandId: 76137 },
+      { url: 'https://amandajenphotography.pic-time.com', brandId: 160449 },
+      { url: 'https://belovedbits.pic-time.com', brandId: 67617 },
+      { url: 'https://gretchenparkerphotography.pic-time.com', brandId: 171533 },
+      { url: 'https://allyperkins.pic-time.com', brandId: 105621 },
+      { url: 'https://gallery.breannapluskevin.com', brandId: 38855 },
+      { url: 'https://timsteelephotography.pic-time.com', brandId: 93717 },
+      { url: 'https://mdvzphotography.pic-time.com', brandId: 124467 },
+      { url: 'https://shayneculpphotography.pic-time.com', brandId: 110015 },
+      { url: 'https://hildegardphotography.pic-time.com', brandId: 207587 },
+      { url: 'https://carleelewisphotography.pic-time.com', brandId: 77774 },
+      { url: 'https://nicholecollinsphoto.pic-time.com', brandId: 205260 },
+      { url: 'https://trentkendra.pic-time.com', brandId: 62642 },
+      { url: 'https://juliensaura.pic-time.com', brandId: 97628 },
+      { url: 'https://emilyschutzphotography.pic-time.com', brandId: 104037 },
+      { url: 'https://theboundys.pic-time.com', brandId: 161082 },
+      { url: 'https://jostlyn.pic-time.com', brandId: 84041 },
+      { url: 'https://reginaasthephotographer.pic-time.com', brandId: 73113 },
+      { url: 'https://daniellejnortonphotography.pic-time.com', brandId: 141920 },
+      { url: 'https://ashleehamonphotography.pic-time.com', brandId: 76382 },
+      { url: 'https://daniellemargheritephotography.pic-time.com', brandId: 64840 },
+      { url: 'https://capturedphotographybyhaleighwehr.pic-time.com', brandId: 93750 },
+      { url: 'https://ashleylaydenphoto.pic-time.com', brandId: 85818 },
+      { url: 'https://heirlumephotography.pic-time.com', brandId: 157477 },
+      { url: 'https://boudoirbykimberly.pic-time.com', brandId: 145946 },
+      { url: 'https://ashleysaraphotography.pic-time.com', brandId: 59141 },
+      { url: 'https://taylorsmithphoto.pic-time.com', brandId: 111840 },
+      { url: 'https://proofing.twopairphotography.com', brandId: 118525 },
+      { url: 'https://lovedarling.pic-time.com', brandId: 129937 },
+      { url: 'https://hushandwildboudoir.pic-time.com', brandId: 176501 },
+      { url: 'https://sixteenfourteenphotography.pic-time.com', brandId: 25695 },
+      { url: 'https://photosbyjill.pic-time.com', brandId: 95052 },
+      {
+        url: "https://joelleelizabethphotography.pic-time.com",
+        brandId: "43573",
+      },
+      {
+        url: "https://brookeshannonphotography.pic-time.com",
+        brandId: "15204",
+      },
+      {
+        url: "https://ashleybenhamphotography.pic-time.com",
+        brandId: "67787",
+      },
+      { url: "https://sarahwettleson.pic-time.com", brandId: "46193" },
+      { url: "https://angiejustshootme.pic-time.com", brandId: "87998" },
+      {
+        url: "https://wyethaugustinephotography.pic-time.com",
+        brandId: "82458",
+      },
+      { url: "https://lennonphotography.pic-time.com", brandId: "101483" },
+      { url: "https://jodiplumbley.pic-time.com", brandId: "136710" },
+      {
+        url: "https://emilyisaksonphotography.pic-time.com",
+        brandId: "43821",
+      },
+      {
+        url: "https://dallasolgaphotography.pic-time.com",
+        brandId: "47279",
+      },
+      { url: "https://tiarrasorte.pic-time.com", brandId: "6199" },
+      { url: "https://stacimitchellphoto.pic-time.com", brandId: "64565" },
+      { url: "https://winxphoto.pic-time.com", brandId: "86016" },
+      { url: "https://sweetlikepie.pic-time.com", brandId: "88479" },
+      { url: "https://ashleyizquierdo.pic-time.com", brandId: "15269" },
+      { url: "https://thomasdphotography.pic-time.com", brandId: "71372" },
+      { url: "https://amypaine.pic-time.com", brandId: "68519" },
+      { url: "https://carleoimages.pic-time.com", brandId: "130842" },
+      {
+        url: "https://briannalanephotography.pic-time.com",
+        brandId: "125449",
+      },
+      {
+        url: "https://normagarciaphotography.pic-time.com",
+        brandId: "97256",
+      },
+      {
+        url: "https://loveanneliesephotography.pic-time.com",
+        brandId: "70127",
+      },
+      { url: "https://supernovaboudoir.pic-time.com", brandId: "57594" },
+      {
+        url: "https://bloomingbeautyboudoir.pic-time.com",
+        brandId: "168091",
+      },
+      {
+        url: "https://trinacaryphotography.pic-time.com",
+        brandId: "125215",
+      },
+      {
+        url: "https://luxeandcophotography.pic-time.com",
+        brandId: "193168",
+      },
+      {
+        url: "https://keleighmichellephotography.pic-time.com",
+        brandId: "164727",
+      },
+      { url: "https://brynathorinn.pic-time.com", brandId: "144989" },
+      {
+        url: "https://karenhamdorfphotography.pic-time.com",
+        brandId: "82290",
+      },
+      { url: "https://vogtography.pic-time.com", brandId: "121538" },
+      { url: "https://vibycreative.pic-time.com", brandId: "108204" },
+      { url: "https://shutterbugstudios.pic-time.com", brandId: "176319" },
+      {
+        url: "https://letsarahtakeyourpicture.pic-time.com",
+        brandId: "155894",
+      },
+      { url: "https://taylorbartram.pic-time.com", brandId: "69580" },
+      { url: "https://dijanasphotography.pic-time.com", brandId: "68316" },
+      {
+        url: "https://lauramackphotography.pic-time.com",
+        brandId: "152545",
+      },
+      {
+        url: "https://travelfor2photography.pic-time.com",
+        brandId: "177562",
+      },
+      { url: "https://bybaze.pic-time.com", brandId: "169404" },
+      { brandId: 75106, url: "https://beauboudoir.pic-time.com" },
 
       { url: "https://rachelodellphotography.pic-time.com", brandId: 439966 },
       { brandId: 29595, url: "https://chuyphotos.pic-time.com" },
@@ -380,7 +381,6 @@ if (!window.remoteSetupComplete) {
       { brandId: 41424, url: "https://abbeyrainephotography.pic-time.com" },
       { brandId: 40626, url: "https://brooketaelor.pic-time.com" },
       { brandId: 47532, url: "https://alexisraephotography.pic-time.com" },
-      { brandId: 160281, url: "https://abigailephoto.pic-time.com" },
       { brandId: 210478, url: "https://elkandfir.pic-time.com" },
       { brandId: 160247, url: "https://emmawynnpaulphotography.pic-time.com" },
       { brandId: 137069, url: "https://mikaylacphotos.pic-time.com" },
@@ -2703,60 +2703,74 @@ if (!window.remoteSetupComplete) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        // const portfolioResponse = await fetch(`${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`, {
-        //   method: 'POST',
-        //   headers: {
-        //     'content-type': 'application/json; charset=UTF-8',
-        //     'pictimeGUser': pictimeGUserToken,
-        //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
-        //   },
-        //   body: JSON.stringify({brandId: urlToGet.brandId})
-        // });
-
-        // const portfolioJson = await portfolioResponse.json();
-
-        const portfolioJson = await postRequest(
-          `${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`,
-          { brandId: urlToGet.brandId },
+        const dashboardJson = await postRequest(
+          `${urlToGet.url}/!servicesp.asmx/dashboard`,
+          { },
           pictimeGUserToken
         );
 
-        const portfolioData = {
+        const dashboardData = {
           url: urlToGet.url,
-          type: "getAccountClientPortfolio2",
-          data: portfolioJson,
+          type: "dashboard",
+          data: dashboardJson,
         };
 
-        window.insertDoc("portfolio-data", portfolioData);
+        window.insertDoc("dashboard-data", dashboardData);
 
-        const projects = portfolioJson.d[1][0];
-        const projectIds = projects.map((p) => p[1][0]);
+        // // const portfolioResponse = await fetch(`${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`, {
+        // //   method: 'POST',
+        // //   headers: {
+        // //     'content-type': 'application/json; charset=UTF-8',
+        // //     'pictimeGUser': pictimeGUserToken,
+        // //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+        // //   },
+        // //   body: JSON.stringify({brandId: urlToGet.brandId})
+        // // });
 
-        // const responseStorageSettingsResponse = await fetch(`${urlToGet.url}/!services.asmx/getProjectStorageSettings`, {
-        //   method: 'POST',
-        //   headers: {
-        //     'content-type': 'application/json; charset=UTF-8',
-        //     'pictimeGUser': pictimeGUserToken,
-        //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
-        //   },
-        //   body: JSON.stringify({ projectIds })
-        // });
+        // // const portfolioJson = await portfolioResponse.json();
 
-        // const responseStorageSettingsJson = await responseStorageSettingsResponse.json();
+        // const portfolioJson = await postRequest(
+        //   `${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`,
+        //   { brandId: urlToGet.brandId },
+        //   pictimeGUserToken
+        // );
 
-        const responseStorageSettingsJson = await postRequest(
-          `${urlToGet.url}/!services.asmx/getProjectStorageSettings`,
-          { projectIds },
-          pictimeGUserToken
-        );
+        // const portfolioData = {
+        //   url: urlToGet.url,
+        //   type: "getAccountClientPortfolio2",
+        //   data: portfolioJson,
+        // };
 
-        const projectData = {
-          url: urlToGet.url,
-          type: "getProjectStorageSettings",
-          data: responseStorageSettingsJson,
-        };
+        // window.insertDoc("portfolio-data", portfolioData);
 
-        window.insertDoc("project-data", projectData);
+        // const projects = portfolioJson.d[1][0];
+        // const projectIds = projects.map((p) => p[1][0]);
+
+        // // const responseStorageSettingsResponse = await fetch(`${urlToGet.url}/!services.asmx/getProjectStorageSettings`, {
+        // //   method: 'POST',
+        // //   headers: {
+        // //     'content-type': 'application/json; charset=UTF-8',
+        // //     'pictimeGUser': pictimeGUserToken,
+        // //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+        // //   },
+        // //   body: JSON.stringify({ projectIds })
+        // // });
+
+        // // const responseStorageSettingsJson = await responseStorageSettingsResponse.json();
+
+        // const responseStorageSettingsJson = await postRequest(
+        //   `${urlToGet.url}/!services.asmx/getProjectStorageSettings`,
+        //   { projectIds },
+        //   pictimeGUserToken
+        // );
+
+        // const projectData = {
+        //   url: urlToGet.url,
+        //   type: "getProjectStorageSettings",
+        //   data: responseStorageSettingsJson,
+        // };
+
+        // window.insertDoc("project-data", projectData);
       } catch (err) {
         console.error(err);
         window.insertDoc("error", err.toString());
