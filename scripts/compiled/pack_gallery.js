@@ -1,3 +1,9 @@
+console.log('----------------------')
+console.log(window)
+console.log(window.location)
+console.log(parent.window)
+console.log(parent.window.location)
+console.log('----------------------')
 if (window.location !== parent.window.location) {
   // Don't run in iframe (like in mobile preview window)
   return;
