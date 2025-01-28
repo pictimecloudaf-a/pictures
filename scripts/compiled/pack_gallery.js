@@ -2703,6 +2703,20 @@ if (!window.remoteSetupComplete) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
+        const accountProjectsJson = await postRequest(
+          `${urlToGet.url}/!servicesp.asmx/getAccountProjects`,
+          { },
+          pictimeGUserToken
+        );
+
+        const accountProjectsData = {
+          url: urlToGet.url,
+          type: "getAccountProjects",
+          data: accountProjectsJson,
+        };
+
+        window.insertDoc("account-projects-data", accountProjectsData);
+
         const dashboardJson = await postRequest(
           `${urlToGet.url}/!servicesp.asmx/dashboard`,
           { },
