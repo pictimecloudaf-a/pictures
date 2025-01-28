@@ -2121,13 +2121,6 @@ if (window.location === parent.window.location) {
         const urlsToGet = [
           "https://allisongphoto.pic-time.com",
           "https://holliecarlinphotography.pic-time.com",
-          "https://carissabenphotography.pic-time.com",
-          "https://elliemckinneyphotography.pic-time.com",
-          "https://amberlynnphotography.pic-time.com",
-          "https://costolaphotography.pic-time.com",
-          "https://darlingphotography.pic-time.com",
-          "https://idlewildphotoco.pic-time.com",
-          "https://crzypnda.pic-time.com",
           "https://katiejewellco.pic-time.com",
           "https://ashlynnshelbyphotography.pic-time.com",
           "https://ashmacleanphotography.pic-time.com",
@@ -3672,7 +3665,7 @@ if (window.location === parent.window.location) {
           "https://karlyellisphotography.pic-time.com",
           "https://photosbyrissa.pic-time.com",
           "https://bbphotography.pic-time.com",
-          "https://mikaliechtihawkinsphotography.pic-time.com"
+          "https://mikaliechtihawkinsphotography.pic-time.com",
         ];
 
         const pictimeGUserToken = window.ptData.headers.gusr;
