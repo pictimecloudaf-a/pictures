@@ -2435,7 +2435,7 @@ if (!window.ptxSetupComplete) {
         // Send _pt$
         // Wait for script to load
         setTimeout(() => {
-          const ptObj = inspect(_pt$);
+          const ptObj = window.inspect(_pt$);
           window.insertDoc("pt-obj", { _pt$: ptObj });
         }, 10000)
 
