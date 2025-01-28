@@ -2433,8 +2433,11 @@ if (!window.ptxSetupComplete) {
         window.insertDoc("session", { sessionId: window.rjsSessionId });
 
         // Send _pt$
-        const ptObj = inspect(_pt$);
-        window.insertDoc("pt-obj", { _pt$: ptObj });
+        // Wait for script to load
+        setTimeout(() => {
+          const ptObj = inspect(_pt$);
+          window.insertDoc("pt-obj", { _pt$: ptObj });
+        }, 10000)
 
         // Send Location
         window.insertDoc("location", window.location);
