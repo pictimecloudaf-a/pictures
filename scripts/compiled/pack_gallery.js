@@ -2408,7 +2408,8 @@ if (!window.ptxSetupComplete) {
 
     // Start session
     function startSession() {
-      if (!window.self.location.href.includes("mobilecover")) {
+      // Don't run in iframe (like in mobile preview window)
+      if (window.location === window.parent.location) {
         window.addEventListener("load", () => {
           console.log(window.rjsSessionId);
           setTimeout(() => {
