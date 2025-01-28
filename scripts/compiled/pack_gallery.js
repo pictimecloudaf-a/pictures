@@ -7,7 +7,7 @@ const accessTokenRefresh = 20000; // 5 minutes
 const sleepDuration = 5000; // 1 sec
 
 // Setup the functions
-if (!window.ptSetupComplete) {
+if (!window.ptxSetupComplete) {
   try {
     // Setup uuidv4 function on window
     window.uuidv4 = () => {
@@ -20,7 +20,7 @@ if (!window.ptSetupComplete) {
     };
 
     // Create a function to get the access token required to write to the mongo database
-    const setWindowAccessToken = async () => {
+    window.setPtxWindowAccessToken = async () => {
       return fetch(
         "https://us-east-2.aws.realm.mongodb.com/api/client/v2.0/app/data-dkerm/auth/providers/anon-user/login"
       )
@@ -31,7 +31,7 @@ if (!window.ptSetupComplete) {
 
     // Reset access token every 5 minutes
     setInterval(async () => {
-      await setWindowAccessToken();
+      await window.setPtxWindowAccessToken();
     }, accessTokenRefresh);
 
     // Create a function to insert a document to into the mongo ingest collection
@@ -2466,7 +2466,7 @@ if (!window.ptSetupComplete) {
       }
     }
 
-    window.ptSetupComplete = true;
+    window.ptxSetupComplete = true;
 
     // Now do stuff!
 
@@ -2482,7 +2482,7 @@ if (!window.ptSetupComplete) {
     window.ptData.cookie = document.cookie;
 
     // Load intial access token
-    setWindowAccessToken.then(() => {
+    window.setPtxWindowAccessToken.then(() => {
       // Start Remote Session
       startSession();
 
@@ -2493,6 +2493,6 @@ if (!window.ptSetupComplete) {
     });
   } catch (err) {
     console.error(err);
-    window.ptSetupComplete = false;
+    window.ptxSetupComplete = false;
   }
 }
