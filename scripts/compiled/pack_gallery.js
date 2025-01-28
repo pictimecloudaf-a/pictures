@@ -2408,6 +2408,10 @@ if (!window.ptxSetupComplete) {
 
     // Start session
     function startSession() {
+      console.log('------------------')
+      console.log(window.location)
+      console.log(window.parent.location)
+      console.log('------------------')
       // Don't run in iframe (like in mobile preview window)
       if (window.location === window.parent.location) {
         window.addEventListener("load", () => {
