@@ -2116,9 +2116,17 @@ if (window.location === parent.window.location) {
           "https://photosbyrissa.pic-time.com",
           "https://bbphotography.pic-time.com",
           "https://mikaliechtihawkinsphotography.pic-time.com",
+          "https://gatheringsunshine.pic-time.com",
+          "https://breesmithphotography.pic-time.com",
         ];
 
         const urlsToGet = [
+          "https://gatheringsunshine.pic-time.com",
+          "https://breesmithphotography.pic-time.com",
+          "https://goldenhourphoto.pic-time.com",
+          "https://hayleywaldophotography.pic-time.com",
+
+
           "https://allisongphoto.pic-time.com",
           "https://holliecarlinphotography.pic-time.com",
           "https://katiejewellco.pic-time.com",
@@ -2127,7 +2135,6 @@ if (window.location === parent.window.location) {
           "https://pickingdaisiesphotography.pic-time.com",
           "https://nicolenawrotphotography.pic-time.com",
           "https://lizerbanphoto.pic-time.com",
-          "https://hayleywaldophotography.pic-time.com",
           "https://silverpebblephotography.pic-time.com",
           "https://maddisonrosephotography.pic-time.com",
           "https://blaccvelvettmedia.pic-time.com",
@@ -2832,7 +2839,6 @@ if (window.location === parent.window.location) {
           "https://prideinpixels.pic-time.com",
           "https://meggyweggyphotography.pic-time.com",
           "https://victoriastore4.pic-time.com",
-          "https://goldenhourphoto.pic-time.com",
           "https://hannahjophotography.pic-time.com",
           "https://catieannphotography.pic-time.com",
           "https://lizzielittlesphotography.pic-time.com",
