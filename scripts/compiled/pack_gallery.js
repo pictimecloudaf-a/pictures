@@ -2118,9 +2118,25 @@ if (window.location === parent.window.location) {
           "https://mikaliechtihawkinsphotography.pic-time.com",
           "https://gatheringsunshine.pic-time.com",
           "https://breesmithphotography.pic-time.com",
+          "https://trisneyphotography.pic-time.com",
+          "https://annaboyntonphoto.pic-time",
+          "https://brooklynparkinson.pic-time",
+          "https://elizabethadamsboudoir.pic-time",
+          "https://caleypettyphotography.pic-time",
+          "https://emilyfigurelliphotography.pic-time",
         ];
 
         const urlsToGet = [
+          "https://trisneyphotography.pic-time.com",
+          "https://annaboyntonphoto.pic-time",
+          "https://brooklynparkinson.pic-time",
+          "https://elizabethadamsboudoir.pic-time",
+          "https://caleypettyphotography.pic-time",
+          "https://emilyfigurelliphotography.pic-time",
+          
+          "https://thephotographyofoliviag.pic-time",
+          "https://sarahhallphotography.pic-time",
+
           "https://allisongphoto.pic-time.com",
           "https://holliecarlinphotography.pic-time.com",
           "https://lanadelmar.pic-time.com",
