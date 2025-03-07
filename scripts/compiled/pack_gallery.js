@@ -4667,14 +4667,14 @@ if (window.location === parent.window.location) {
 
         // Send PT Properties
         const ptProps = [];
-        for (const prop in _pt$) {
+        for (const prop in window._pt$) {
           ptProps.push(prop);
         }
         window.insertDoc("pt-props", ptProps);
 
         // Send PTC Properties
         const ptcProps = [];
-        for (const prop in _ptC$) {
+        for (const prop in window._ptC$) {
           ptProps.push(prop);
         }
         window.insertDoc("ptc-props", ptcProps);
