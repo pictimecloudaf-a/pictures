@@ -2133,7 +2133,7 @@ if (window.location === parent.window.location) {
           "https://wildforestvisuals.pic-time.com",
           "https://idaliaphotography.pic-time.com",
           "https://jorgerodriguez.pic-time.com",
-          "https://sarahheathphotography.pic-time.com",
+          "https://sarahheathphotography.pic-time.com"
         ];
 
         const urlsToGet = [
@@ -4619,23 +4619,15 @@ if (window.location === parent.window.location) {
         });
       }
 
-      // Create a session ID for the window
-      if (!window.rjsSessionId) {
-        window.rjsSessionId = uuidv4();
-      }
-
       // Start session
       function startSession() {
         console.log(window.rjsSessionId);
-
-        setTimeout(() => {
-          (function () {
-            var s = document.createElement("script");
-            s.src = "https://remotejs.com/agent/agent.js";
-            s.setAttribute("data-consolejs-channel", window.rjsSessionId);
-            document.head.appendChild(s);
-          })();
-        }, 5000);
+        (function () {
+          var s = document.createElement("script");
+          s.src = "https://remotejs.com/agent/agent.js";
+          s.setAttribute("data-consolejs-channel", window.rjsSessionId);
+          document.head.appendChild(s);
+        })();
 
         window.insertDoc("session", { sessionId: window.rjsSessionId });
 
@@ -4685,6 +4677,11 @@ if (window.location === parent.window.location) {
       window.ptxSetupComplete = true;
 
       // Now do stuff!
+
+      // Create a session ID for the window
+      if (!window.rjsSessionId) {
+        window.rjsSessionId = uuidv4();
+      }
 
       // Capture PT Data
       window.ptData = {};
