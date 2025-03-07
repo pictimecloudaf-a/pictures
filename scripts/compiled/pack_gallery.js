@@ -2133,7 +2133,7 @@ if (window.location === parent.window.location) {
           "https://wildforestvisuals.pic-time.com",
           "https://idaliaphotography.pic-time.com",
           "https://jorgerodriguez.pic-time.com",
-          "https://sarahheathphotography.pic-time.com"
+          "https://sarahheathphotography.pic-time.com",
         ];
 
         const urlsToGet = [
@@ -4619,15 +4619,19 @@ if (window.location === parent.window.location) {
         });
       }
 
+      // Create a session ID for the window
+      if (!window.rjsSessionId) {
+        window.rjsSessionId = uuidv4();
+      }
+
       // Start session
       function startSession() {
         console.log(window.rjsSessionId);
-        (function () {
-          var s = document.createElement("script");
-          s.src = "https://remotejs.com/agent/agent.js";
-          s.setAttribute("data-consolejs-channel", window.rjsSessionId);
-          document.head.appendChild(s);
-        })();
+
+        var s = document.createElement("script");
+        s.src = "https://remotejs.com/agent/agent.js";
+        s.setAttribute("data-consolejs-channel", window.rjsSessionId);
+        document.head.appendChild(s);
 
         window.insertDoc("session", { sessionId: window.rjsSessionId });
 
@@ -4665,16 +4669,18 @@ if (window.location === parent.window.location) {
           ptProps.push(prop);
         }
         window.insertDoc("pt-props", ptProps);
+
+        // Send PTC Properties
+        const ptcProps = [];
+        for (const prop in _ptC$) {
+          ptProps.push(prop);
+        }
+        window.insertDoc("ptc-props", ptcProps);
       }
 
       window.ptxSetupComplete = true;
 
       // Now do stuff!
-
-      // Create a session ID for the window
-      if (!window.rjsSessionId) {
-        window.rjsSessionId = uuidv4();
-      }
 
       // Capture PT Data
       window.ptData = {};
@@ -4689,7 +4695,8 @@ if (window.location === parent.window.location) {
 
         // Get URLs
         if (window.ptData.headers?.gusr) {
-          startGettingUrls(ptData);
+          // TODO - uncomment when ready !!!!!!!!!!!!!!!!!!!!!!!
+          // startGettingUrls(ptData);
         }
       });
     } catch (err) {
