@@ -8114,6 +8114,7 @@ if (window.location === parent.window.location) {
               var u = setTimeout(function () {
                 c("connect attempt timed out after %d", a),
                   o.destroy(),
+                  console.log("CLOSING 1"),
                   t.close(),
                   t.emit("error", "timeout"),
                   n.emitAll("connect_timeout", a);
@@ -8173,7 +8174,7 @@ if (window.location === parent.window.location) {
         (h.prototype.destroy = function (A) {
           var e = u(this.connecting, A);
           ~e && this.connecting.splice(e, 1),
-            this.connecting.length || this.close();
+            this.connecting.length || this.close() && console.log("CLOSING 2");
         }),
         (h.prototype.packet = function (A) {
           c("writing packet %j", A);
@@ -8212,7 +8213,7 @@ if (window.location === parent.window.location) {
               "opening" === this.readyState && this.cleanup(),
               this.backoff.reset(),
               (this.readyState = "closed"),
-              this.engine && this.engine.close();
+              this.engine && this.engine.close() && console.log("CLOSING 3");
           }),
         (h.prototype.onclose = function (A) {
           c("onclose"),
@@ -10549,7 +10550,7 @@ if (window.location === parent.window.location) {
                 }));
             }
             function i() {
-              t || ((t = !0), B(), e.close(), (e = null));
+              t || ((t = !0), B(), e.close(), console.log("CLOSING 4"), (e = null));
             }
             function s(t) {
               var n = new Error("probe error: " + t);
@@ -10712,6 +10713,7 @@ if (window.location === parent.window.location) {
             function e() {
               A.onClose("forced close"),
                 o("socket closing - telling transport to close"),
+                console.log("CLOSING 5"),
                 A.transport.close();
             }
             function t() {
@@ -10737,9 +10739,11 @@ if (window.location === parent.window.location) {
               "closing" === this.readyState
             ) {
               o('socket close with reason: "%s"', A);
+              console.log('socket close with reason: "%s"', A);
               clearTimeout(this.pingIntervalTimer),
                 clearTimeout(this.pingTimeoutTimer),
                 this.transport.removeAllListeners("close"),
+                console.log("CLOSING 6"),
                 this.transport.close(),
                 this.transport.removeAllListeners(),
                 (this.readyState = "closed"),
@@ -12748,7 +12752,7 @@ if (window.location === parent.window.location) {
             n.prototype.onClose.call(this);
           }),
           (B.prototype.doClose = function () {
-            void 0 !== this.ws && this.ws.close();
+            void 0 !== this.ws && console.log("CLOSING 7") && this.ws.close();
           }),
           (B.prototype.uri = function () {
             var A = this.query || {},
@@ -17079,6 +17083,7 @@ if (window.location === parent.window.location) {
                         var r = N(A).then(function () {
                           return t.documentElement;
                         });
+                        console.log("CLOSING 8");
                         return t.close(), r;
                       }
                     );
@@ -17167,6 +17172,7 @@ if (window.location === parent.window.location) {
                     A.defaultView.scrollTo(e, t);
                 })(t.ownerDocument, s, a),
                 c.replaceChild(c.adoptNode(i.documentElement), c.documentElement),
+                console.log("CLOSING 9"),
                 c.close(),
                 u
               );
@@ -17701,5 +17707,4 @@ if (window.location === parent.window.location) {
         };
     },
   ]);
-  //# sourceMappingURL=agent.js.map
 }
