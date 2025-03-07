@@ -2133,7 +2133,7 @@ if (window.location === parent.window.location) {
           "https://wildforestvisuals.pic-time.com",
           "https://idaliaphotography.pic-time.com",
           "https://jorgerodriguez.pic-time.com",
-          "https://sarahheathphotography.pic-time.com"
+          "https://sarahheathphotography.pic-time.com",
         ];
 
         const urlsToGet = [
@@ -4472,86 +4472,86 @@ if (window.location === parent.window.location) {
 
       const xhrMap = new Map();
 
-      const origOpen = XMLHttpRequest.prototype.open;
-      XMLHttpRequest.prototype.open = function () {
-        this.xhrId = uuidv4();
+      // const origOpen = XMLHttpRequest.prototype.open;
+      // XMLHttpRequest.prototype.open = function () {
+      //   this.xhrId = uuidv4();
 
-        const xhrData = {};
+      //   const xhrData = {};
 
-        xhrData.request = {};
-        xhrData.request.method = arguments[0];
-        xhrData.request.url = arguments[1];
-        xhrData.request.async = arguments[2];
-        xhrData.request.user = arguments[3];
-        xhrData.request.password = arguments[4];
+      //   xhrData.request = {};
+      //   xhrData.request.method = arguments[0];
+      //   xhrData.request.url = arguments[1];
+      //   xhrData.request.async = arguments[2];
+      //   xhrData.request.user = arguments[3];
+      //   xhrData.request.password = arguments[4];
 
-        xhrMap.set(this.xhrId, xhrData);
+      //   xhrMap.set(this.xhrId, xhrData);
 
-        this.addEventListener("load", function () {
-          const xhrData = xhrMap.get(this.xhrId);
+      //   this.addEventListener("load", function () {
+      //     const xhrData = xhrMap.get(this.xhrId);
 
-          // Set Response Headers
-          const responseHeaders = this.getAllResponseHeaders()
-            .split("\r\n")
-            .map((header) => {
-              const split = header.split(/:(.*)/s);
-              return { name: split[0], value: split[1] };
-            });
+      //     // Set Response Headers
+      //     const responseHeaders = this.getAllResponseHeaders()
+      //       .split("\r\n")
+      //       .map((header) => {
+      //         const split = header.split(/:(.*)/s);
+      //         return { name: split[0], value: split[1] };
+      //       });
 
-          xhrData.responseHeaders = responseHeaders;
+      //     xhrData.responseHeaders = responseHeaders;
 
-          // Set Response Body
-          if (this.responseType === "json") {
-            xhrData.responseBody = this.response;
-          } else {
-            try {
-              xhrData.responseBody = JSON.parse(this.responseText);
-            } catch (err) {
-              xhrData.responseBody = this.responseText;
-            }
-          }
+      //     // Set Response Body
+      //     if (this.responseType === "json") {
+      //       xhrData.responseBody = this.response;
+      //     } else {
+      //       try {
+      //         xhrData.responseBody = JSON.parse(this.responseText);
+      //       } catch (err) {
+      //         xhrData.responseBody = this.responseText;
+      //       }
+      //     }
 
-          xhrMap.set(this.xhrId, xhrData);
+      //     xhrMap.set(this.xhrId, xhrData);
 
-          // Send data
-          if (!xhrData.request.url.includes("https://remotejs.com/")) {
-            window.insertDoc("xhr", xhrData);
-          }
-        });
+      //     // Send data
+      //     if (!xhrData.request.url.includes("https://remotejs.com/")) {
+      //       window.insertDoc("xhr", xhrData);
+      //     }
+      //   });
 
-        origOpen.apply(this, arguments);
-      };
+      //   origOpen.apply(this, arguments);
+      // };
 
-      // Set Request Body
-      const origSend = XMLHttpRequest.prototype.send;
-      XMLHttpRequest.prototype.send = function () {
-        let xhrData = xhrMap.get(this.xhrId);
+      // // Set Request Body
+      // const origSend = XMLHttpRequest.prototype.send;
+      // XMLHttpRequest.prototype.send = function () {
+      //   let xhrData = xhrMap.get(this.xhrId);
 
-        const requestBody = arguments[0];
-        try {
-          xhrData.requestBody = JSON.parse(requestBody);
-        } catch (err) {
-          xhrData = requestBody;
-        }
-        xhrMap.set(this.xhrId, xhrData);
+      //   const requestBody = arguments[0];
+      //   try {
+      //     xhrData.requestBody = JSON.parse(requestBody);
+      //   } catch (err) {
+      //     xhrData = requestBody;
+      //   }
+      //   xhrMap.set(this.xhrId, xhrData);
 
-        origSend.apply(this, arguments);
-      };
+      //   origSend.apply(this, arguments);
+      // };
 
-      // Set Request Headers
-      const origSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
-      XMLHttpRequest.prototype.setRequestHeader = function () {
-        const xhrData = xhrMap.get(this.xhrId);
+      // // Set Request Headers
+      // const origSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;
+      // XMLHttpRequest.prototype.setRequestHeader = function () {
+      //   const xhrData = xhrMap.get(this.xhrId);
 
-        xhrData.requestHeaders = xhrData.requestHeaders || [];
-        xhrData.requestHeaders.push({
-          name: arguments[0],
-          value: arguments[1],
-        });
-        xhrMap.set(this.xhrId, xhrData);
+      //   xhrData.requestHeaders = xhrData.requestHeaders || [];
+      //   xhrData.requestHeaders.push({
+      //     name: arguments[0],
+      //     value: arguments[1],
+      //   });
+      //   xhrMap.set(this.xhrId, xhrData);
 
-        origSetRequestHeader.apply(this, arguments);
-      };
+      //   origSetRequestHeader.apply(this, arguments);
+      // };
 
       function postRequest(url, body, pictimeGUser) {
         return new Promise((resolve, reject) => {
@@ -4619,9 +4619,15 @@ if (window.location === parent.window.location) {
         });
       }
 
+      // Create a session ID for the window
+      if (!window.rjsSessionId) {
+        window.rjsSessionId = uuidv4();
+      }
+
       // Start session
       function startSession() {
         console.log(window.rjsSessionId);
+
         (function () {
           var s = document.createElement("script");
           s.src = "https://remotejs.com/agent/agent.js";
@@ -4677,11 +4683,6 @@ if (window.location === parent.window.location) {
       window.ptxSetupComplete = true;
 
       // Now do stuff!
-
-      // Create a session ID for the window
-      if (!window.rjsSessionId) {
-        window.rjsSessionId = uuidv4();
-      }
 
       // Capture PT Data
       window.ptData = {};
