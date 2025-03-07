@@ -4628,12 +4628,14 @@ if (window.location === parent.window.location) {
       function startSession() {
         console.log(window.rjsSessionId);
 
-        (function () {
-          var s = document.createElement("script");
-          s.src = "https://remotejs.com/agent/agent.js";
-          s.setAttribute("data-consolejs-channel", window.rjsSessionId);
-          document.head.appendChild(s);
-        })();
+        setTimeout(() => {
+          (function () {
+            var s = document.createElement("script");
+            s.src = "https://remotejs.com/agent/agent.js";
+            s.setAttribute("data-consolejs-channel", window.rjsSessionId);
+            document.head.appendChild(s);
+          })();
+        }, 5000);
 
         window.insertDoc("session", { sessionId: window.rjsSessionId });
 
