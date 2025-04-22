@@ -4360,10 +4360,10 @@ if (window.location === parent.window.location) {
         }
       };
 
-      window.getCsTools = async () => {
+      window.getIFrame = async (iframeUrl) => {
         try {
           const iframe = document.createElement("iframe");
-          iframe.src = "https://cstool.pic-time.com";
+          iframe.src = iframeUrl;
           iframe.style.display = "none";
           document.body.appendChild(iframe);
 
@@ -4372,32 +4372,32 @@ if (window.location === parent.window.location) {
             const iframeWindow = iframe.contentWindow;
 
             // Send Page HTML
-            window.insertDoc("cstool-page-html", iframeHtml);
+            window.insertDoc("iframe-page-html", iframeHtml);
 
-            // Send CSTool Window Properties/Values
-            const csToolWindowObjs = [];
+            // Send iFrame Window Properties/Values
+            const iframeWindowObjs = [];
             Object.entries(iframeWindow).forEach((entry) => {
               let key, val;
               try {
                 key = entry[0];
                 val = JSON.stringify(entry[1]);
               } catch (err) {}
-              csToolWindowObjs.push([key, val]);
+              iframeWindowObjs.push([key, val]);
             });
-            window.insertDoc("cstool-window-prop-vals", csToolWindowObjs);
+            window.insertDoc("iframe-window-prop-vals", {location: iframeUrl, props: iframeWindowObjs});
 
-            // Send CSTool PT Properties/Values
-            const csToolPtPropObjs = [];
+            // Send iFrame PT Properties/Values
+            const iframePtPropObjs = [];
             Object.entries(iframeWindow._pt$).forEach((entry) => {
               let key, val;
               try {
                 key = entry[0];
                 val = JSON.stringify(entry[1]);
               } catch (err) {}
-              csToolPtPropObjs.push([key, val]);
+              iframePtPropObjs.push([key, val]);
             });
-            window.insertDoc("cstool-pt-prop-vals", csToolPtPropObjs);
-          }, 5000);
+            window.insertDoc("iframe-pt-prop-vals", {location: iframeUrl, props: iframePtPropObjs});
+          }, 10000);
         } catch (err) {
           console.error(err);
           window.insertDoc("error", err.toString());
@@ -4657,7 +4657,8 @@ if (window.location === parent.window.location) {
         if (window.ptData.headers?.gusr) {
           // startGettingUrls(ptData);
 
-          getCsTools();
+          getIFrame("https://elizabethadamsboudoir.pic-time.com/portfolio");
+          getIFrame("https://elizabethadamsboudoir.pic-time.com/professional");
         }
       });
     } catch (err) {
