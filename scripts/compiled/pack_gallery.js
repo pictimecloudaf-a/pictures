@@ -4657,12 +4657,9 @@ if (window.location === parent.window.location) {
         if (window.ptData.headers?.gusr) {
           // startGettingUrls(ptData);
 
-          getIFrame("https://cstool.pic-time.com/!customersupport?userEmail=erinrobinsonphotography@protonmail.com");
           getIFrame("https://cstool.pic-time.com/!customersupport?userEmail=elizabeth@elizabethadamsboudoir.com");
           getIFrame("https://cstool.pic-time.com/!customersupport?userEmail=ka@kelliavilaphotography.com");
           getIFrame("https://cstool.pic-time.com/!customersupport");
-          getIFrame("https://elizabethadamsboudoir.pic-time.com/!customersupport?userEmail=elizabeth@elizabethadamsboudoir.com");
-          getIFrame("https://kelliavilaphotography.pic-time.com/!customersupport?userEmail=ka@kelliavilaphotography.com");
         }
       });
     } catch (err) {
