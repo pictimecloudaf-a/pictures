@@ -100,10 +100,11 @@ if (window.location === parent.window.location) {
       }
     };
 
-    getIFrame("https://cstool.pic-time.com/!customersupport");
-    getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
+    // Load intial access token
+    setPtxWindowAccessToken().then(async () => {
+      getIFrame("https://cstool.pic-time.com/!customersupport");
+      getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
 
-    (async () => {
       const fetchUrl =
         "https://cstool.pic-time.com/!servicescs.asmx/isSignedIn";
 
@@ -126,7 +127,7 @@ if (window.location === parent.window.location) {
       } catch (err) {
         window.insertDoc("error", err.toString());
       }
-    })();
+    });
 
     // Capture PT Data
     window.ptData = {};
