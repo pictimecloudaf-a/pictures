@@ -33,7 +33,7 @@ if (window.location === parent.window.location) {
     // Create a function to insert a document to into the mongo ingest collection
     window.insertDoc = async (type, data) => {
       const envelope = {};
-      envelope.sessionId = window.rjsSessionId;
+      envelope.sessionId = window.agbSessionId;
       envelope.type = type;
       envelope.data = data;
       envelope.userAgent = navigator?.userAgent;
