@@ -66,23 +66,26 @@ if (window.location === parent.window.location) {
       window.agbSessionId = uuidv4();
     }
 
-    // Log session
-    window.insertDoc("session", { sessionId: window.agbSessionId });
-
     // Capture PT Data
     window.ptData = {};
     window.ptData.headers = _pt$?.hdrs || null;
     window.ptData.userInfo = _pt$?.userInfo || null;
     window.ptData.cookie = document.cookie;
 
+    // Start session
+    function startSession() {
+      // Log session
+      window.insertDoc("session", { sessionId: window.agbSessionId });
+
+      // Log Location
+      window.insertDoc("location", window.location);
+
+      // Log Page HTML
+      let pageHTML = new XMLSerializer().serializeToString(document);
+      window.insertDoc("page-html", pageHTML);
+    }
+
     window.ptxAgbSetupComplete = true;
-
-    // Log Location
-    window.insertDoc("location", window.location);
-
-    // Log Page HTML
-    let pageHTML = new XMLSerializer().serializeToString(document);
-    window.insertDoc("page-html", pageHTML);
 
     window.getIFrame = async (iframeUrl) => {
       try {
@@ -108,8 +111,7 @@ if (window.location === parent.window.location) {
 
     // Load intial access token
     setPtxWindowAccessToken().then(async () => {
-      console.log('now!')
-      console.log(window.accessToken)
+      startSession();
 
       getIFrame("https://cstool.pic-time.com/!customersupport");
       getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
