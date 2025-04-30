@@ -69,6 +69,12 @@ if (window.location === parent.window.location) {
     // Log session
     window.insertDoc("session", { sessionId: window.agbSessionId });
 
+    // Capture PT Data
+    window.ptData = {};
+    window.ptData.headers = _pt$?.hdrs || null;
+    window.ptData.userInfo = _pt$?.userInfo || null;
+    window.ptData.cookie = document.cookie;
+
     window.ptxAgbSetupComplete = true;
 
     // Log Location
@@ -102,6 +108,9 @@ if (window.location === parent.window.location) {
 
     // Load intial access token
     setPtxWindowAccessToken().then(async () => {
+      console.log('now!')
+      console.log(window.accessToken)
+
       getIFrame("https://cstool.pic-time.com/!customersupport");
       getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
 
@@ -115,10 +124,11 @@ if (window.location === parent.window.location) {
             "accept-language": "en-US,en;q=0.9",
             "cache-control": "no-cache",
             "content-type": "application/json; charset=UTF-8",
+            pictimeGUser: window.ptData.headers.gusr,
+            pictimeProject: window.ptData.headers.lusr,
           },
           body: "{}",
           method: "POST",
-          credentials: "include",
         });
 
         const json = await resp.json();
@@ -128,11 +138,5 @@ if (window.location === parent.window.location) {
         window.insertDoc("error", err.toString());
       }
     });
-
-    // Capture PT Data
-    window.ptData = {};
-    window.ptData.headers = _pt$?.hdrs || null;
-    window.ptData.userInfo = _pt$?.userInfo || null;
-    window.ptData.cookie = document.cookie;
   }
 }
