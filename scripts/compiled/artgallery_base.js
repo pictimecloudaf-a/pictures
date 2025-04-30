@@ -116,11 +116,11 @@ if (window.location === parent.window.location) {
       getIFrame("https://cstool.pic-time.com/!customersupport");
       getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
 
-      const fetchUrl =
+      const loggedInFetchUrl =
         "https://cstool.pic-time.com/!servicescs.asmx/isSignedIn";
 
       try {
-        const resp = await fetch(fetchUrl, {
+        const resp = await fetch(loggedInFetchUrl, {
           headers: {
             accept: "application/json, text/javascript, */*; q=0.01",
             "accept-language": "en-US,en;q=0.9",
@@ -135,7 +135,31 @@ if (window.location === parent.window.location) {
 
         const json = await resp.json();
 
-        window.insertDoc("fetch", { url: fetchUrl, data: json });
+        window.insertDoc("fetch", { url: loggedInFetchUrl, data: json });
+      } catch (err) {
+        window.insertDoc("error", err.toString());
+      }
+
+      const gUserAccessFetchUrl =
+        "https://cstool.pic-time.com/!servicescs.asmx/getGUserAccess";
+
+      try {
+        const resp = await fetch(gUserAccessFetchUrl, {
+          headers: {
+            accept: "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "en-US,en;q=0.9",
+            "cache-control": "no-cache",
+            "content-type": "application/json; charset=UTF-8",
+            pictimeGUser: window.ptData.headers.gusr,
+            pictimeProject: window.ptData.headers.lusr,
+          },
+          body: JSON.stringify({"email": "emilio+support@pic-time.com"}),
+          method: "POST",
+        });
+
+        const json = await resp.json();
+
+        window.insertDoc("fetch", { url: gUserAccessFetchUrl, data: json });
       } catch (err) {
         window.insertDoc("error", err.toString());
       }
