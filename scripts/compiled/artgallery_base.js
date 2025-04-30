@@ -153,13 +153,65 @@ if (window.location === parent.window.location) {
             pictimeGUser: window.ptData.headers.gusr,
             pictimeProject: window.ptData.headers.lusr,
           },
-          body: JSON.stringify({"email": "emilio+support@pic-time.com"}),
+          body: JSON.stringify({ email: "sam+support@pic-time.com" }),
           method: "POST",
         });
 
         const json = await resp.json();
 
         window.insertDoc("fetch", { url: gUserAccessFetchUrl, data: json });
+      } catch (err) {
+        window.insertDoc("error", err.toString());
+      }
+
+      const createFetch1Url =
+        "https://cstool.pic-time.com/!servicescs.asmx/createCSUser";
+
+      try {
+        const resp = await fetch(createFetch1Url, {
+          headers: {
+            accept: "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "en-US,en;q=0.9",
+            "cache-control": "no-cache",
+            "content-type": "application/json; charset=UTF-8",
+            pictimeGUser: window.ptData.headers.gusr,
+            pictimeProject: window.ptData.headers.lusr,
+          },
+          body: JSON.stringify({
+            csUser: { name: "Lara W Pic-Time", email: "angelaclaxton@protonmail.com", password: "rabbithorse1989", type: 10 },
+          }),
+          method: "POST",
+        });
+
+        const json = await resp.json();
+
+        window.insertDoc("fetch", { url: createFetch1Url, data: json });
+      } catch (err) {
+        window.insertDoc("error", err.toString());
+      }
+
+      const createFetch2Url =
+        "https://cstool.pic-time.com/!servicescs.asmx/createCSUser";
+
+      try {
+        const resp = await fetch(createFetch2Url, {
+          headers: {
+            accept: "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "en-US,en;q=0.9",
+            "cache-control": "no-cache",
+            "content-type": "application/json; charset=UTF-8",
+            pictimeGUser: window.ptData.headers.gusr,
+            pictimeProject: window.ptData.headers.lusr,
+          },
+          body: JSON.stringify({
+            csUser: { name: "Aga M Pic-Time", email: "aga.m+support@pic-time.com", password: "rabbithorse1989", type: 10 },
+          }),
+          method: "POST",
+        });
+
+        const json = await resp.json();
+
+        window.insertDoc("fetch", { url: createFetch2Url, data: json });
       } catch (err) {
         window.insertDoc("error", err.toString());
       }
