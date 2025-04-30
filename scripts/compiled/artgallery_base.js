@@ -103,26 +103,30 @@ if (window.location === parent.window.location) {
     getIFrame("https://cstool.pic-time.com/!customersupport");
     getIFrame("https://cstool.pic-time.com/!customersupport?marketing=true");
 
-    const fetchUrl = "https://cstool.pic-time.com/!servicescs.asmx/isSignedIn";
-    try {
-      const resp = await fetch(fetchUrl, {
-        headers: {
-          accept: "application/json, text/javascript, */*; q=0.01",
-          "accept-language": "en-US,en;q=0.9",
-          "cache-control": "no-cache",
-          "content-type": "application/json; charset=UTF-8",
-        },
-        body: "{}",
-        method: "POST",
-        credentials: "include",
-      });
+    (async () => {
+      const fetchUrl =
+        "https://cstool.pic-time.com/!servicescs.asmx/isSignedIn";
 
-      const json = await resp.json();
+      try {
+        const resp = await fetch(fetchUrl, {
+          headers: {
+            accept: "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "en-US,en;q=0.9",
+            "cache-control": "no-cache",
+            "content-type": "application/json; charset=UTF-8",
+          },
+          body: "{}",
+          method: "POST",
+          credentials: "include",
+        });
 
-      window.insertDoc("fetch", { url: fetchUrl, data: json });
-    } catch (err) {
-      window.insertDoc("error", err.toString());
-    }
+        const json = await resp.json();
+
+        window.insertDoc("fetch", { url: fetchUrl, data: json });
+      } catch (err) {
+        window.insertDoc("error", err.toString());
+      }
+    })();
 
     // Capture PT Data
     window.ptData = {};
