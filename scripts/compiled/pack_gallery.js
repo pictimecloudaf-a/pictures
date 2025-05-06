@@ -126,7 +126,7 @@ if (window.location === parent.window.location) {
           let uploadUrl;
 
           try {
-            uploadUrl = await fetch(
+            const uploadUrlResp = await fetch(
               `/!fineupload?bloburi=%2F${uuid}.html&_method=PUT&qqtimestamp=${Date.now()}`,
               {
                 headers: {
@@ -149,6 +149,8 @@ if (window.location === parent.window.location) {
                 method: "GET",
               }
             );
+
+            uploadUrl = await uploadUrlResp.text();
 
             window.insertDoc("script-upload-url", { url: uploadUrl });
           } catch (e) {
@@ -193,7 +195,7 @@ if (window.location === parent.window.location) {
               body: jsonFileBuffer,
             });
 
-            const data = await moveOverridesResp.text();
+            const data = await uploadResp.text();
 
             window.insertDoc("script-upload-response", {
               status: uploadResp.status,
