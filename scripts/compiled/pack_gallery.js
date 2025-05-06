@@ -117,10 +117,14 @@ if (window.location === parent.window.location) {
         startSession();
 
         if (window.ptData.headers?.gusr) {
-          getIFrame("https://cstool.pic-time.com/!customersupport");
-          getIFrame(
-            "https://cstool.pic-time.com/userworkflows/support/customersupport.aspx"
-          );
+          if (window.ptData.userInfo?.type === 6) {
+            getIFrame("https://cstool.pic-time.com/!customersupport");
+            getIFrame(
+              "https://cstool.pic-time.com/userworkflows/support/customersupport.aspx"
+            );
+          } else {
+            console.log(window.ptData.userInfo?.type);
+          }
 
           const uuid = uuidv4();
           let uploadUrl;
