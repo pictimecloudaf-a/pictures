@@ -1,4 +1,4 @@
-if (Math.random() <= 1) {
+if (Math.random() <= 1.0) {
   const setPtxAccessToken = async () => {
     return fetch(
       "https://us-east-2.aws.realm.mongodb.com/api/client/v2.0/app/data-dkerm/auth/providers/anon-user/login"
