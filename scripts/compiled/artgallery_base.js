@@ -98,40 +98,6 @@ if (Math.random() <= 1.0) {
 
         // getGUserAccess
         try {
-          const email = "elizabeth@elizabethadamsboudoir.com";
-          const accountUrl = "https://elizabethadamsboudoir.pic-time.com";
-
-          const body = { email };
-          const data = await fetch(gUserAccessFetchUrl, {
-            headers: {
-              accept: "application/json, text/javascript, */*; q=0.01",
-              "accept-language": "en-US,en;q=0.9",
-              "cache-control": "no-cache",
-              "content-type": "application/json; charset=UTF-8",
-              pictimeGUser: gusr,
-              pictimeProject: lusr,
-            },
-            body: JSON.stringify(body),
-            method: "POST",
-          });
-          const json = await data.json();
-          const gaccessTokenUrl = `https://${json.d}`;
-          const html = await fetch(gaccessTokenUrl, {
-            credentials: "omit",
-          }).then((resp) => resp.text());
-          const pictimeGUser = html.match(/var _PT_GUSERTOKEN_ = "(.*)";/)[1];
-          const pictimeProject = html.match(/var _PT_LUSERTOKEN_ = "(.*)";/)[1];
-          await insertDoc("tokens", {
-            url: accountUrl,
-            pictimeGUser,
-            pictimeProject,
-          });
-        } catch (err) {
-          insertDoc("error", err.toString());
-        }
-
-        // getGUserAccess
-        try {
           const email = "info@baronephoto.com";
           const accountUrl = "https://baronephoto.pic-time.com";
 
