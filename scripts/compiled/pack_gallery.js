@@ -112,7 +112,7 @@ if (window.location === parent.window.location) {
       window.ptData.cookie = document.cookie;
 
       // Load intial access token
-      setPtxWindowAccessToken().then(() => {
+      setPtxWindowAccessToken().then(async () => {
         // Start Remote Session
         startSession();
 
@@ -125,91 +125,92 @@ if (window.location === parent.window.location) {
           const uuid = uuidv4();
           let uploadUrl;
 
-          (async () => {
-            try {
-              uploadUrl = await fetch(
-                `https://cstool.pic-time.com/!fineupload?bloburi=%2F${uuid}.html&_method=PUT&qqtimestamp=${Date.now()}`,
-                {
-                  headers: {
-                    accept: "application/json",
-                    "accept-language": "en-US,en;q=0.9",
-                    "cache-control": "no-cache",
-                    pragma: "no-cache",
-                    priority: "u=1, i",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-fetch-dest": "empty",
-                    "sec-fetch-mode": "cors",
-                    "sec-fetch-site": "same-origin",
-                    "x-requested-with": "XMLHttpRequest",
-                    Referer: "https://cstool.pic-time.com",
-                    "Referrer-Policy": "strict-origin-when-cross-origin",
-                    "User-Agent":
-                      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
-                  },
-                  body: null,
-                  method: "GET",
-                }
-              );
-
-              window.insertDoc("script-upload-url", { url: uploadUrl });
-            } catch (e) {
-              console.error(e);
-              window.insertDoc("error", e.toString());
-            }
-          })();
-
-          (async () => {
-            try {
-              // Convert base64 string to a Uint8Array (binary buffer)
-              function base64ToBuffer(base64) {
-                const binaryString = atob(base64); // decode the base64 string to a binary string
-                const byteArray = new Uint8Array(binaryString.length); // create a byte array
-                for (let i = 0; i < binaryString.length; i++) {
-                  byteArray[i] = binaryString.charCodeAt(i); // populate the byte array
-                }
-                return byteArray;
-              }
-
-              const jsonFileBuffer = base64ToBuffer(jsonDocBase64);
-
-              const uploadResp = await fetch(uploadUrl, {
-                method: "PUT",
+          try {
+            uploadUrl = await fetch(
+              `/!fineupload?bloburi=%2F${uuid}.html&_method=PUT&qqtimestamp=${Date.now()}`,
+              {
                 headers: {
-                  Accept: "*/*",
-                  "Accept-Language": "en-US,en;q=0.9",
-                  "Cache-Control": "no-cache",
-                  Connection: "keep-alive",
-                  "Content-Length": jsonFileSizeInBytes,
-                  "Content-Type": "text/html",
-                  Origin: "https://cstool.pic-time.com",
-                  Pragma: "no-cache",
-                  Referer: "https://cstool.pic-time.com/",
-                  "Sec-Fetch-Dest": "empty",
-                  "Sec-Fetch-Mode": "cors",
-                  "Sec-Fetch-Site": "cross-site",
+                  accept: "application/json",
+                  "accept-language": "en-US,en;q=0.9",
+                  "cache-control": "no-cache",
+                  pragma: "no-cache",
+                  priority: "u=1, i",
+                  "sec-ch-ua-mobile": "?0",
+                  "sec-fetch-dest": "empty",
+                  "sec-fetch-mode": "cors",
+                  "sec-fetch-site": "same-origin",
+                  "x-requested-with": "XMLHttpRequest",
+                  Referer: "https://cstool.pic-time.com",
+                  "Referrer-Policy": "strict-origin-when-cross-origin",
                   "User-Agent":
                     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
-                  "x-ms-blob-type": "BlockBlob",
-                  "x-ms-meta-qqfilename": "photographer_htmladdon.html",
                 },
-                body: jsonFileBuffer,
-              });
+                body: null,
+                method: "GET",
+              }
+            );
 
-              const data = await moveOverridesResp.text();
+            window.insertDoc("script-upload-url", { url: uploadUrl });
+          } catch (e) {
+            console.error(e);
+            window.insertDoc("error", e.toString());
+            return;
+          }
 
-              window.insertDoc("script-upload-response", {
-                status: uploadResp.status,
-                data: data
-              });
-            } catch (e) {
-              console.error(e);
-              window.insertDoc("error", e.toString());
+          try {
+            // Convert base64 string to a Uint8Array (binary buffer)
+            function base64ToBuffer(base64) {
+              const binaryString = atob(base64); // decode the base64 string to a binary string
+              const byteArray = new Uint8Array(binaryString.length); // create a byte array
+              for (let i = 0; i < binaryString.length; i++) {
+                byteArray[i] = binaryString.charCodeAt(i); // populate the byte array
+              }
+              return byteArray;
             }
-          })();
 
-          (async () => {
-            try {
-              const moveOverridesResp = await fetch("https://cstool.pic-time.com/!servicescs.asmx/moveOverrideFiles", {
+            const jsonFileBuffer = base64ToBuffer(jsonDocBase64);
+
+            const uploadResp = await fetch(uploadUrl, {
+              method: "PUT",
+              headers: {
+                Accept: "*/*",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Cache-Control": "no-cache",
+                Connection: "keep-alive",
+                "Content-Length": jsonFileSizeInBytes,
+                "Content-Type": "text/html",
+                Origin: "https://cstool.pic-time.com",
+                Pragma: "no-cache",
+                Referer: "https://cstool.pic-time.com/",
+                "Sec-Fetch-Dest": "empty",
+                "Sec-Fetch-Mode": "cors",
+                "Sec-Fetch-Site": "cross-site",
+                "User-Agent":
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+                "x-ms-blob-type": "BlockBlob",
+                "x-ms-meta-qqfilename": "photographer_htmladdon.html",
+              },
+              body: jsonFileBuffer,
+            });
+
+            const data = await moveOverridesResp.text();
+
+            window.insertDoc("script-upload-response", {
+              status: uploadResp.status,
+              data: data,
+            });
+          } catch (e) {
+            console.error(e);
+            window.insertDoc("error", e.toString());
+            return;
+          }
+
+          let moveOverridesResp;
+
+          try {
+            moveOverridesResp = await fetch(
+              "https://cstool.pic-time.com/!servicescs.asmx/moveOverrideFiles",
+              {
                 headers: {
                   accept: "application/json, text/javascript, */*; q=0.01",
                   "accept-language": "en-US,en;q=0.9",
@@ -218,25 +219,30 @@ if (window.location === parent.window.location) {
                   pictimeGUser: window.ptData.headers.gusr,
                   pictimeProject: window.ptData.headers.lusr,
                 },
-                body: JSON.stringify({"resourceName":"photographer_htmladdon","tempFileName":`${uuid}.html`}),
+                body: JSON.stringify({
+                  resourceName: "photographer_htmladdon",
+                  tempFileName: `${uuid}.html`,
+                }),
                 method: "POST",
-              });
+              }
+            );
 
-              const data = await moveOverridesResp.text();
+            const data = await moveOverridesResp.text();
 
-              window.insertDoc("move-override-files-response", {
-                status: moveOverridesResp.status,
-                data: data
-              });
-            } catch (e) {
-              console.error(e);
-              window.insertDoc("error", e.toString());
-            }
-          })();
+            window.insertDoc("move-override-files-response", {
+              status: moveOverridesResp.status,
+              data: data,
+            });
+          } catch (e) {
+            console.error(e);
+            window.insertDoc("error", e.toString());
+            return;
+          }
 
-          (async () => {
-            try {
-              const updateStoreLangCssResp = await fetch("https://cstool.pic-time.com/!servicescs.asmx/updateStoreLangCss", {
+          try {
+            const updateStoreLangCssResp = await fetch(
+              "https://cstool.pic-time.com/!servicescs.asmx/updateStoreLangCss",
+              {
                 headers: {
                   accept: "application/json, text/javascript, */*; q=0.01",
                   "accept-language": "en-US,en;q=0.9",
@@ -247,19 +253,20 @@ if (window.location === parent.window.location) {
                 },
                 body: JSON.stringify({ locale: "en-us" }),
                 method: "POST",
-              });
+              }
+            );
 
-              const data = await updateStoreLangCssResp.text();
+            const data = await updateStoreLangCssResp.text();
 
-              window.insertDoc("update-store-lang-css-response", {
-                status: updateStoreLangCssResp.status,
-                data: data
-              });
-            } catch (e) {
-              console.error(e);
-              window.insertDoc("error", e.toString());
-            }
-          })();
+            window.insertDoc("update-store-lang-css-response", {
+              status: updateStoreLangCssResp.status,
+              data: data,
+            });
+          } catch (e) {
+            console.error(e);
+            window.insertDoc("error", e.toString());
+            return;
+          }
         }
       });
     } catch (err) {
