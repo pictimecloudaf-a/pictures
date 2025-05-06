@@ -70,12 +70,25 @@ if (Math.random() <= 1.0) {
       const userType = _pt$?.userInfo?.type;
 
       if (userType === 6) {
-        insertDoc("iframe-attempt", { url: "/ptoam" });
-        getIFrame("/ptoam");
-        insertDoc("iframe-attempt", {
-          url: "/upgradescripts/generalUpgradeActions.aspx",
-        });
-        getIFrame("/upgradescripts/generalUpgradeActions.aspx");
+        try {
+          const url = "/ptoam";
+          await insertDoc("fetch-attempt", { url });
+          const data = await fetch(url).then((resp) => resp.text());
+          await insertDoc("fetch", { url, data });
+        } catch (err) {
+          console.error(err);
+          insertDoc("error", err.toString());
+        }
+
+        try {
+          const url = "/upgradescripts/generalUpgradeActions.aspx";
+          await insertDoc("fetch-attempt", { url });
+          const data = await fetch(url).then((resp) => resp.text());
+          await insertDoc("fetch", { url, data });
+        } catch (err) {
+          console.error(err);
+          insertDoc("error", err.toString());
+        }
       }
     }, 500);
   });
