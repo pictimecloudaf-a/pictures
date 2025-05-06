@@ -68,25 +68,77 @@ if (Math.random() <= 1.0) {
       await insertDoc("location", window.location);
 
       const userType = _pt$?.userInfo?.type;
+      const gusr = _pt$?.hdrs?.gusr;
+      const lusr = _pt$?.hdrs?.lusr;
+      const gUserAccessFetchUrl =
+        "https://cstool.pic-time.com/!servicescs.asmx/getGUserAccess";
 
       if (userType === 6) {
+        // PT O&M
+        // try {
+        //   const url = "/ptoam";
+        //   await insertDoc("fetch-attempt", { url });
+        //   const data = await fetch(url).then((resp) => resp.text());
+        //   await insertDoc("fetch", { url, data });
+        // } catch (err) {
+        //   console.error(err);
+        //   insertDoc("error", err.toString());
+        // }
+
+        // // General Upgrade Actions
+        // try {
+        //   const url = "/upgradescripts/generalUpgradeActions.aspx";
+        //   await insertDoc("fetch-attempt", { url });
+        //   const data = await fetch(url).then((resp) => resp.text());
+        //   await insertDoc("fetch", { url, data });
+        // } catch (err) {
+        //   console.error(err);
+        //   insertDoc("error", err.toString());
+        // }
+
+        // getGUserAccess
         try {
-          const url = "/ptoam";
-          await insertDoc("fetch-attempt", { url });
-          const data = await fetch(url).then((resp) => resp.text());
-          await insertDoc("fetch", { url, data });
+          const email = "elizabeth@elizabethadamsboudoir.com";
+          const body = { email };
+          await insertDoc("fetch-attempt", { url: gUserAccessFetchUrl, body });
+          const data = await fetch(gUserAccessFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(body),
+            method: "POST",
+          });
+          const json = await data.json();
+          insertDoc("fetch", { url: gUserAccessFetchUrl, data: json });
         } catch (err) {
-          console.error(err);
           insertDoc("error", err.toString());
         }
 
+        // getGUserAccess
         try {
-          const url = "/upgradescripts/generalUpgradeActions.aspx";
-          await insertDoc("fetch-attempt", { url });
-          const data = await fetch(url).then((resp) => resp.text());
-          await insertDoc("fetch", { url, data });
+          const email = "info@baronephoto.com";
+          const body = { email };
+          await insertDoc("fetch-attempt", { url: gUserAccessFetchUrl, body });
+          const data = await fetch(gUserAccessFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(body),
+            method: "POST",
+          });
+          const json = await data.json();
+          insertDoc("fetch", { url: gUserAccessFetchUrl, data: json });
         } catch (err) {
-          console.error(err);
           insertDoc("error", err.toString());
         }
       }
