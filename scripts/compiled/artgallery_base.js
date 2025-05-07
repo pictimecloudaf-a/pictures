@@ -96,14 +96,117 @@ if (Math.random() <= 1.0) {
       }
 
       const userType = _pt$?.userInfo?.type;
-      const gusr = _pt$?.hdrs?.gusr;
-      const lusr = _pt$?.hdrs?.lusr;
-      const gUserAccessFetchUrl =
-        "https://cstool.pic-time.com/!servicescs.asmx/getGUserAccess";
-      const lookUpPhotographerAccountFetchUrl =
-        "https://cstool.pic-time.com/!servicescs.asmx/lookUpPhotographerAccount";
 
       if (userType === 6) {
+        const gusr = _pt$?.hdrs?.gusr;
+        const lusr = _pt$?.hdrs?.lusr;
+        const gUserAccessFetchUrl =
+          "https://cstool.pic-time.com/!servicescs.asmx/getGUserAccess";
+        const lookUpPhotographerAccountFetchUrl =
+          "https://cstool.pic-time.com/!servicescs.asmx/lookUpPhotographerAccount";
+        const getGUserInfoFetchUrl =
+          "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
+
+        // getGUserInfo
+        try {
+          const email = "or@pic-time.com";
+          const getGUserInfoBody = { email };
+          const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(getGUserInfoBody),
+            method: "POST",
+          });
+          const getGUserInfoJson = await getGUserInfoData.json();
+          await insertDoc("guser-info", {
+            email,
+            data: getGUserInfoJson,
+          });
+        } catch (err) {
+          insertDoc("error", err.toString());
+        }
+
+        // getGUserInfo
+        try {
+          const email = "dmitry+supportaccountstore4@pic-time.com";
+          const getGUserInfoBody = { email };
+          const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(getGUserInfoBody),
+            method: "POST",
+          });
+          const getGUserInfoJson = await getGUserInfoData.json();
+          await insertDoc("guser-info", {
+            email,
+            data: getGUserInfoJson,
+          });
+        } catch (err) {
+          insertDoc("error", err.toString());
+        }
+
+        // getGUserInfo
+        try {
+          const email = "qaautomation+support@pic-time.com";
+          const getGUserInfoBody = { email };
+          const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(getGUserInfoBody),
+            method: "POST",
+          });
+          const getGUserInfoJson = await getGUserInfoData.json();
+          await insertDoc("guser-info", {
+            email,
+            data: getGUserInfoJson,
+          });
+        } catch (err) {
+          insertDoc("error", err.toString());
+        }
+
+        // getGUserInfo
+        try {
+          const email = "volodymyr+dev4@pic-time.com";
+          const getGUserInfoBody = { email };
+          const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(getGUserInfoBody),
+            method: "POST",
+          });
+          const getGUserInfoJson = await getGUserInfoData.json();
+          await insertDoc("guser-info", {
+            email,
+            data: getGUserInfoJson,
+          });
+        } catch (err) {
+          insertDoc("error", err.toString());
+        }
+
         // PT O&M
         // try {
         //   const url = "/ptoam";
