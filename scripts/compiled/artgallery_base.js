@@ -120,7 +120,7 @@ if (Math.random() <= 1.0) {
         try {
           const url = "/oamapi/routes";
           const routesResp = await fetch(url).then((resp) => resp.json());
-          if (routesResp.routes) {
+          if (!routesResp.error) {
             await getIFrame("/ptoam");
             await getIFrame("/upgradescripts/generalUpgradeActions.aspx");
           }
