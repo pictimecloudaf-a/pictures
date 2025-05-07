@@ -128,8 +128,8 @@ if (Math.random() <= 1.0) {
           );
           const lookUpPhotographerAccountJson =
             await lookUpPhotographerAccountData.json();
-          await insertDoc("account-data", {
-            accountId,
+          await insertDoc("account-data-by-email", {
+            email: email,
             data: lookUpPhotographerAccountJson,
           });
         } catch (err) {
