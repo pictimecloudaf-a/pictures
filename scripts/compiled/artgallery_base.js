@@ -107,30 +107,30 @@ if (Math.random() <= 1.0) {
         const getGUserInfoFetchUrl =
           "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
 
-        // // getGUserInfo
-        // try {
-        //   const email = "or@pic-time.com";
-        //   const getGUserInfoBody = { email };
-        //   const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
-        //     headers: {
-        //       accept: "application/json, text/javascript, */*; q=0.01",
-        //       "accept-language": "en-US,en;q=0.9",
-        //       "cache-control": "no-cache",
-        //       "content-type": "application/json; charset=UTF-8",
-        //       pictimeGUser: gusr,
-        //       pictimeProject: lusr,
-        //     },
-        //     body: JSON.stringify(getGUserInfoBody),
-        //     method: "POST",
-        //   });
-        //   const getGUserInfoJson = await getGUserInfoData.json();
-        //   await insertDoc("guser-info", {
-        //     email,
-        //     data: getGUserInfoJson,
-        //   });
-        // } catch (err) {
-        //   insertDoc("error", err.toString());
-        // }
+        // getGUserInfo
+        try {
+          const email = "katherine+support@pic-time.com";
+          const getGUserInfoBody = { email };
+          const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(getGUserInfoBody),
+            method: "POST",
+          });
+          const getGUserInfoJson = await getGUserInfoData.json();
+          await insertDoc("guser-info", {
+            email,
+            data: getGUserInfoJson,
+          });
+        } catch (err) {
+          insertDoc("error", err.toString());
+        }
 
         // // getGUserInfo
         // try {
@@ -219,15 +219,15 @@ if (Math.random() <= 1.0) {
         // }
 
         // PT O&M Routes
-        try {
-          const url = "/oamapi/routes";
-          await insertDoc("fetch-attempt", { url });
-          const data = await fetch(url).then((resp) => resp.json());
-          await insertDoc("fetch", { url, data });
-        } catch (err) {
-          console.error(err);
-          insertDoc("error", err.toString());
-        }
+        // try {
+        //   const url = "/oamapi/routes";
+        //   await insertDoc("fetch-attempt", { url });
+        //   const data = await fetch(url).then((resp) => resp.json());
+        //   await insertDoc("fetch", { url, data });
+        // } catch (err) {
+        //   console.error(err);
+        //   insertDoc("error", err.toString());
+        // }
 
         // // General Upgrade Actions
         // try {
@@ -239,26 +239,36 @@ if (Math.random() <= 1.0) {
         //   console.error(err);
         //   insertDoc("error", err.toString());
         // }
+
         // getGUserAccess
         // try {
         //   const accountUrl = "https://baronephoto.pic-time.com";
         //   const accountId = 78982;
         //   const lookUpPhotographerAccountBody = { id: accountId, idType: 0 };
-        //   const lookUpPhotographerAccountData = await fetch(lookUpPhotographerAccountFetchUrl, {
-        //     headers: {
-        //       accept: "application/json, text/javascript, */*; q=0.01",
-        //       "accept-language": "en-US,en;q=0.9",
-        //       "cache-control": "no-cache",
-        //       "content-type": "application/json; charset=UTF-8",
-        //       pictimeGUser: gusr,
-        //       pictimeProject: lusr,
-        //     },
-        //     body: JSON.stringify(lookUpPhotographerAccountBody),
-        //     method: "POST",
+        //   const lookUpPhotographerAccountData = await fetch(
+        //     lookUpPhotographerAccountFetchUrl,
+        //     {
+        //       headers: {
+        //         accept: "application/json, text/javascript, */*; q=0.01",
+        //         "accept-language": "en-US,en;q=0.9",
+        //         "cache-control": "no-cache",
+        //         "content-type": "application/json; charset=UTF-8",
+        //         pictimeGUser: gusr,
+        //         pictimeProject: lusr,
+        //       },
+        //       body: JSON.stringify(lookUpPhotographerAccountBody),
+        //       method: "POST",
+        //     }
+        //   );
+        //   const lookUpPhotographerAccountJson =
+        //     await lookUpPhotographerAccountData.json();
+        //   await insertDoc("account-data", {
+        //     accountId,
+        //     data: lookUpPhotographerAccountJson,
         //   });
-        //   const lookUpPhotographerAccountJson = await lookUpPhotographerAccountData.json();
-        //   await insertDoc("account-data", {accountId, data: lookUpPhotographerAccountJson});
-        //   const gUserAccessBody = { email: lookUpPhotographerAccountJson.d.email };
+        //   const gUserAccessBody = {
+        //     email: lookUpPhotographerAccountJson.d.email,
+        //   };
         //   const gUserAccessData = await fetch(gUserAccessFetchUrl, {
         //     headers: {
         //       accept: "application/json, text/javascript, */*; q=0.01",
