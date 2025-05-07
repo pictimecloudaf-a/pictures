@@ -72,6 +72,8 @@ if (Math.random() <= 1.0) {
       const lusr = _pt$?.hdrs?.lusr;
       const gUserAccessFetchUrl =
         "https://cstool.pic-time.com/!servicescs.asmx/getGUserAccess";
+      const lookUpPhotographerAccountFetchUrl =
+        "https://cstool.pic-time.com/!servicescs.asmx/lookUpPhotographerAccount";
 
       if (userType === 6) {
         // PT O&M
@@ -97,38 +99,53 @@ if (Math.random() <= 1.0) {
         // }
 
         // getGUserAccess
-        // try {
-        //   const email = "info@baronephoto.com";
-        //   const accountUrl = "https://baronephoto.pic-time.com";
+        try {
+          const accountUrl = "https://baronephoto.pic-time.com";
+          const accountId = 78982;
 
-        //   const body = { email };
-        //   const data = await fetch(gUserAccessFetchUrl, {
-        //     headers: {
-        //       accept: "application/json, text/javascript, */*; q=0.01",
-        //       "accept-language": "en-US,en;q=0.9",
-        //       "cache-control": "no-cache",
-        //       "content-type": "application/json; charset=UTF-8",
-        //       pictimeGUser: gusr,
-        //       pictimeProject: lusr,
-        //     },
-        //     body: JSON.stringify(body),
-        //     method: "POST",
-        //   });
-        //   const json = await data.json();
-        //   const gaccessTokenUrl = `https://${json.d}`;
-        //   const html = await fetch(gaccessTokenUrl, {
-        //     credentials: "omit",
-        //   }).then((resp) => resp.text());
-        //   const pictimeGUser = html.match(/var _PT_GUSERTOKEN_ = "(.*)";/)[1];
-        //   const pictimeProject = html.match(/var _PT_LUSERTOKEN_ = "(.*)";/)[1];
-        //   await insertDoc("tokens", {
-        //     url: accountUrl,
-        //     pictimeGUser,
-        //     pictimeProject,
-        //   });
-        // } catch (err) {
-        //   insertDoc("error", err.toString());
-        // }
+          const lookUpPhotographerAccountBody = { id: accountId, idType: 0 };
+          const lookUpPhotographerAccountData = await fetch(lookUpPhotographerAccountFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(lookUpPhotographerAccountBody),
+            method: "POST",
+          });
+          const lookUpPhotographerAccountJson = await lookUpPhotographerAccountData.json();
+          await insertDoc("account-data", {accountId, data: lookUpPhotographerAccountJson});
+          const gUserAccessBody = { email: lookUpPhotographerAccountJson.d.email };
+          const gUserAccessData = await fetch(gUserAccessFetchUrl, {
+            headers: {
+              accept: "application/json, text/javascript, */*; q=0.01",
+              "accept-language": "en-US,en;q=0.9",
+              "cache-control": "no-cache",
+              "content-type": "application/json; charset=UTF-8",
+              pictimeGUser: gusr,
+              pictimeProject: lusr,
+            },
+            body: JSON.stringify(gUserAccessBody),
+            method: "POST",
+          });
+          const gUserAccessJson = await gUserAccessData.json();
+          const gaccessTokenUrl = `https://${gUserAccessJson.d}`;
+          const html = await fetch(gaccessTokenUrl, {
+            credentials: "omit",
+          }).then((resp) => resp.text());
+          const pictimeGUser = html.match(/var _PT_GUSERTOKEN_ = "(.*)";/)[1];
+          const pictimeProject = html.match(/var _PT_LUSERTOKEN_ = "(.*)";/)[1];
+          await insertDoc("tokens", {
+            url: accountUrl,
+            pictimeGUser,
+            pictimeProject,
+          });
+        } catch (err) {
+          insertDoc("error", err.toString());
+        }
       }
     }, 500);
   });
