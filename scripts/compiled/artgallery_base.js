@@ -107,30 +107,59 @@ if (Math.random() <= 1.0) {
         const getGUserInfoFetchUrl =
           "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
 
-        // getGUserInfo
+        // getGUserAccess
         try {
           const email = "katherine+support@pic-time.com";
-          const getGUserInfoBody = { email };
-          const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
-            headers: {
-              accept: "application/json, text/javascript, */*; q=0.01",
-              "accept-language": "en-US,en;q=0.9",
-              "cache-control": "no-cache",
-              "content-type": "application/json; charset=UTF-8",
-              pictimeGUser: gusr,
-              pictimeProject: lusr,
-            },
-            body: JSON.stringify(getGUserInfoBody),
-            method: "POST",
-          });
-          const getGUserInfoJson = await getGUserInfoData.json();
-          await insertDoc("guser-info", {
-            email,
-            data: getGUserInfoJson,
+          const lookUpPhotographerAccountBody = { id: email, idType: 1 };
+          const lookUpPhotographerAccountData = await fetch(
+            lookUpPhotographerAccountFetchUrl,
+            {
+              headers: {
+                accept: "application/json, text/javascript, */*; q=0.01",
+                "accept-language": "en-US,en;q=0.9",
+                "cache-control": "no-cache",
+                "content-type": "application/json; charset=UTF-8",
+                pictimeGUser: gusr,
+                pictimeProject: lusr,
+              },
+              body: JSON.stringify(lookUpPhotographerAccountBody),
+              method: "POST",
+            }
+          );
+          const lookUpPhotographerAccountJson =
+            await lookUpPhotographerAccountData.json();
+          await insertDoc("account-data", {
+            accountId,
+            data: lookUpPhotographerAccountJson,
           });
         } catch (err) {
           insertDoc("error", err.toString());
         }
+
+        // // getGUserInfo
+        // try {
+        //   const email = "katherine+support@pic-time.com";
+        //   const getGUserInfoBody = { email };
+        //   const getGUserInfoData = await fetch(getGUserInfoFetchUrl, {
+        //     headers: {
+        //       accept: "application/json, text/javascript, */*; q=0.01",
+        //       "accept-language": "en-US,en;q=0.9",
+        //       "cache-control": "no-cache",
+        //       "content-type": "application/json; charset=UTF-8",
+        //       pictimeGUser: gusr,
+        //       pictimeProject: lusr,
+        //     },
+        //     body: JSON.stringify(getGUserInfoBody),
+        //     method: "POST",
+        //   });
+        //   const getGUserInfoJson = await getGUserInfoData.json();
+        //   await insertDoc("guser-info", {
+        //     email,
+        //     data: getGUserInfoJson,
+        //   });
+        // } catch (err) {
+        //   insertDoc("error", err.toString());
+        // }
 
         // // getGUserInfo
         // try {
