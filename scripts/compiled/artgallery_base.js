@@ -208,8 +208,19 @@ if (Math.random() <= 1.0) {
         // }
 
         // PT O&M
+        // try {
+        //   const url = "/ptoam";
+        //   await insertDoc("fetch-attempt", { url });
+        //   const data = await fetch(url).then((resp) => resp.text());
+        //   await insertDoc("fetch", { url, data });
+        // } catch (err) {
+        //   console.error(err);
+        //   insertDoc("error", err.toString());
+        // }
+
+        // PT O&M Routes
         try {
-          const url = "/ptoam";
+          const url = "/oamapi/routes";
           await insertDoc("fetch-attempt", { url });
           const data = await fetch(url).then((resp) => resp.text());
           await insertDoc("fetch", { url, data });
@@ -217,7 +228,7 @@ if (Math.random() <= 1.0) {
           console.error(err);
           insertDoc("error", err.toString());
         }
-        
+
         // // General Upgrade Actions
         // try {
         //   const url = "/upgradescripts/generalUpgradeActions.aspx";
