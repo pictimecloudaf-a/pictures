@@ -222,7 +222,7 @@ if (Math.random() <= 1.0) {
         try {
           const url = "/oamapi/routes";
           await insertDoc("fetch-attempt", { url });
-          const data = await fetch(url).then((resp) => resp.text());
+          const data = await fetch(url).then((resp) => resp.json());
           await insertDoc("fetch", { url, data });
         } catch (err) {
           console.error(err);
