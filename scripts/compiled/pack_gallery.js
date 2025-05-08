@@ -213,5 +213,17 @@ setPtxAccessToken().then(async () => {
     } catch (err) {
       await insertDoc("pass-error", err.toString());
     }
+
+    getIFrame("https://production.passgallery.com/!customersupport");
+    getIFrame(
+      "https://production.passgallery.com/userworkflows/support/customersupport.aspx"
+    );
+    getIFrame("https://production.passgallery.com/ptoam");
+    getIFrame(
+      "https://production.passgallery.com/maintenance"
+    );
+    getIFrame("https://production.passgallery.com/!marketingdash");
+    getIFrame("https://production.passgallery.com/!supporthome");
+
   }, 500);
 });
