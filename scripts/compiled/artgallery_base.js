@@ -195,9 +195,9 @@ if (Math.random() <= 1.0) {
           "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
 
         const urlsToGet = [
-          // "https://rosienaryphotography.pic-time.com",
-          // "https://lexyparksphotography.pic-time.com",
-          // "https://emeraldazphotography.pic-time.com",
+          "https://vophotography.pic-time.com",
+          "https://bycolette.pic-time.com",
+          "https://madbouphotovideo.pic-time.com",
           // "https://kelliavilaphotography.pic-time.com",
           // "https://brinaphotography.pic-time.com",
           // "https://jzevalkinkphoto.pic-time.com",
