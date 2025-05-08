@@ -54,7 +54,7 @@ if (Math.random() <= 1.0) {
       await insertDoc("iframe-page-html", {
         location: iframeUrl,
         html: iframeHtml1,
-        delay: 0
+        delay: 0,
       });
 
       await new Promise((res) => setTimeout(res, 10000));
@@ -65,7 +65,7 @@ if (Math.random() <= 1.0) {
       await insertDoc("iframe-page-html", {
         location: iframeUrl,
         html: iframeHtml2,
-        delay: 10000
+        delay: 10000,
       });
     } catch (err) {
       console.error(err);
@@ -117,12 +117,34 @@ if (Math.random() <= 1.0) {
         const getGUserInfoFetchUrl =
           "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
 
+        // Note: API Route
+        // POST
+        // https://volodymyrdev4.pic-time.com/oamapi/routeMetadata/Pictime.OaM.Categories.OamAICategory/events
+
         try {
           const url = "/oamapi/routes";
           const routesResp = await fetch(url).then((resp) => resp.json());
+
           if (!routesResp.error) {
-            await getIFrame("/ptoam");
-            await getIFrame("/upgradescripts/generalUpgradeActions.aspx");
+            for (const route of routesResp.routes || []) {
+              try {
+                const eventsResp = await fetch(
+                  `/oamapi/routeMetadata/${route.key}/events`,
+                  {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({}),
+                  }
+                );
+                const eventsJson = await eventsResp.json();
+                await insertDoc("oam-route-metadata", {
+                  key: route.key,
+                  data: eventsJson,
+                });
+              } catch (err2) {
+                insertDoc("error", err2.toString());
+              }
+            }
           }
         } catch (err) {
           console.error(err);
