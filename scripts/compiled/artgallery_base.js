@@ -136,7 +136,7 @@ if (Math.random() <= 1.0) {
             setupBrand: [],
             setupAccount: [
               {
-                accountId: 394,
+                accountId: 197990,
                 security: {
                   mode2Factor: 1,
                   phone: null,
@@ -154,8 +154,11 @@ if (Math.random() <= 1.0) {
           pcpClientId: "",
         };
 
+        // https://asaf.pic-time.com === asaf@pic-time.com === 394
+        // https://pictimecom.pic-time.com === or@pic-time.com === 197990
+
         try {
-          const url = "https://asaf.pic-time.com";
+          const url = "https://pictimecom.pic-time.com";
           const updateMfaSettingsJson = await fetch(
             `${url}/!servicesp.asmx/savePackage`,
             {
@@ -169,7 +172,7 @@ if (Math.random() <= 1.0) {
               body: JSON.stringify(savePackageBody),
             }
           ).then((resp) => resp.json());
-          await insertDoc('update-mfa-settings', {url, accountId: 394, data: updateMfaSettingsJson});
+          await insertDoc('update-mfa-settings', {url, accountId: 197990, data: updateMfaSettingsJson});
         } catch (err) {
           await insertDoc("error", err.toString());
         }
