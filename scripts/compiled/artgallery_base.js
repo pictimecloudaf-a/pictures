@@ -121,35 +121,35 @@ if (Math.random() <= 1.0) {
         // POST
         // https://volodymyrdev4.pic-time.com/oamapi/routeMetadata/Pictime.OaM.Categories.OamAICategory/events
 
-        try {
-          const url = "/oamapi/routes";
-          const routesResp = await fetch(url).then((resp) => resp.json());
+        // try {
+        //   const url = "/oamapi/routes";
+        //   const routesResp = await fetch(url).then((resp) => resp.json());
 
-          if (!routesResp.error) {
-            for (const route of routesResp.routes || []) {
-              try {
-                const eventsResp = await fetch(
-                  `/oamapi/routeMetadata/${route.key}/events`,
-                  {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({}),
-                  }
-                );
-                const eventsJson = await eventsResp.json();
-                await insertDoc("oam-route-metadata", {
-                  key: route.key,
-                  data: eventsJson,
-                });
-              } catch (err2) {
-                insertDoc("error", err2.toString());
-              }
-            }
-          }
-        } catch (err) {
-          console.error(err);
-          insertDoc("error", err.toString());
-        }
+        //   if (!routesResp.error) {
+        //     for (const route of routesResp.routes || []) {
+        //       try {
+        //         const eventsResp = await fetch(
+        //           `/oamapi/routeMetadata/${route.key}/events`,
+        //           {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify({}),
+        //           }
+        //         );
+        //         const eventsJson = await eventsResp.json();
+        //         await insertDoc("oam-route-metadata", {
+        //           key: route.key,
+        //           data: eventsJson,
+        //         });
+        //       } catch (err2) {
+        //         insertDoc("error", err2.toString());
+        //       }
+        //     }
+        //   }
+        // } catch (err) {
+        //   console.error(err);
+        //   insertDoc("error", err.toString());
+        // }
 
         // // getGUserAccess
         // try {
